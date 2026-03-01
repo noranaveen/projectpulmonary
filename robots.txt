@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://noranaveen.github.io/projectpulmonary/sitemap.xml
