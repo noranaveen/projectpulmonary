@@ -70,7 +70,8 @@
       <div class="form-wrap">
         <span class="eyebrow">Send a message</span>
         <h3>Contact form</h3>
-        <form data-contact-form action="mailto:projectpulmonary@gmail.com" method="post" enctype="text/plain">
+        <form data-contact-form action="https://formspree.io/f/xwvakvlp" method="POST">
+          <input type="hidden" name="_subject" value="Project Pulmonary contact form submission">
           <div class="form-grid">
             <label>Name<input type="text" name="name" required></label>
             <label>Email<input type="email" name="email" required></label>
@@ -78,7 +79,7 @@
           <label>Subject<input type="text" name="subject" required></label>
           <label>Message<textarea name="message" required></textarea></label>
           <button class="btn btn-purple" type="submit">Send Message</button>
-          <p class="note">This local version opens your email app to send the message to projectpulmonary@gmail.com. For a live deployed site, this can be connected to a form service.</p>
+          <p class="note">This form submits directly to Formspree using your endpoint, and visitors do not need a mail client.</p>
         </form>
       </div>
     </div>
