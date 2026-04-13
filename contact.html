@@ -70,15 +70,21 @@
       <div class="form-wrap">
         <span class="eyebrow">Send a message</span>
         <h3>Contact form</h3>
-        <form data-contact-form action="https://formspree.io/f/xwvakvlp" method="POST">
+        <div data-fs-success class="form-message success" style="display:none;">Thanks! Your message was sent successfully.</div>
+        <div data-fs-error class="form-message error" style="display:none;">Sorry, there was a problem sending your message. Please try again.</div>
+        <form id="contact-form" data-contact-form action="https://formspree.io/f/xwvakvlp" method="POST">
           <input type="hidden" name="_subject" value="Project Pulmonary contact form submission">
           <div class="form-grid">
-            <label>Name<input type="text" name="name" required></label>
-            <label>Email<input type="email" name="email" required></label>
+            <label>Name<input type="text" name="name" data-fs-field required></label>
+            <span data-fs-error="name" class="field-error"></span>
+            <label>Email<input type="email" name="email" data-fs-field required></label>
+            <span data-fs-error="email" class="field-error"></span>
           </div>
-          <label>Subject<input type="text" name="subject" required></label>
-          <label>Message<textarea name="message" required></textarea></label>
-          <button class="btn btn-purple" type="submit">Send Message</button>
+          <label>Subject<input type="text" name="subject" data-fs-field required></label>
+          <span data-fs-error="subject" class="field-error"></span>
+          <label>Message<textarea name="message" data-fs-field required></textarea></label>
+          <span data-fs-error="message" class="field-error"></span>
+          <button class="btn btn-purple" type="submit" data-fs-submit-btn>Send Message</button>
           <p class="note">This form submits directly to Formspree using your endpoint, and visitors do not need a mail client.</p>
         </form>
       </div>
@@ -142,6 +148,11 @@
     </div>
   </div>
 </footer>
+<script>
+  window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
+  formspree('initForm', { formElement: '#contact-form', formId: 'xwvakvlp' });
+</script>
+<script src="https://unpkg.com/@formspree/ajax@1" defer></script>
 <script src="assets/js/main.js"></script>
 
 </body>
