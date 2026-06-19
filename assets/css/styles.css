@@ -449,3 +449,35 @@ body{overflow-x:hidden}
   .award-image{padding:12px;}
   .award-image img{min-height:unset;max-height:720px;}
 }
+
+
+/* Join page hero fix */
+.page-hero .page-lead-grid {
+  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+  align-items: center;
+}
+
+.page-hero .page-lead-grid > div {
+  max-width: 620px;
+}
+
+.page-hero .page-lead-grid > img.join-lead {
+  width: 100%;
+  height: auto;
+  min-height: 0;
+  max-height: 430px;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  object-position: center 18%;
+}
+
+@media (max-width: 980px) {
+  .page-hero .page-lead-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .page-hero .page-lead-grid > img.join-lead {
+    max-height: none;
+    aspect-ratio: 16 / 11;
+  }
+}
