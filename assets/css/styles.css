@@ -471,3 +471,42 @@ body{overflow-x:hidden}
   display:flex;
   flex-direction:column;
 }
+
+/*edit #2 to change image upward*/
+.join-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(420px, 1fr);
+  gap: 42px;
+  align-items: stretch;
+  margin-top: 14px;
+}
+
+.join-hero-copy {
+  display: flex;
+  flex-direction: column;
+}
+
+.join-hero-copy .hero-cta {
+  margin-top: 26px;
+}
+
+.join-hero-grid .join-lead {
+  width: 100%;
+  height: 100%;
+  min-height: 430px;
+  object-fit: cover;
+  object-position: center 18%;
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+}
+
+@media (max-width: 980px) {
+  .join-hero-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .join-hero-grid .join-lead {
+    min-height: 0;
+    aspect-ratio: 16 / 11;
+  }
+}
