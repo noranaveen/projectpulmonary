@@ -1352,3 +1352,9 @@ h1,h2,h3,
     border-radius:32px;
   }
 }
+
+.home-about img {
+    display: block;
+    margin: 48px auto 0;
+    max-width: 100%;
+}
