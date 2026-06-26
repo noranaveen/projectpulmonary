@@ -833,3 +833,203 @@ body{
     padding:28px;
   }
 }
+
+
+/* === Make site feel less boxy / more organic === */
+
+/* softer full site */
+body{
+  background:
+    radial-gradient(circle at 20% 18%, rgba(124,108,255,.18), transparent 28%),
+    radial-gradient(circle at 90% 40%, rgba(91,140,255,.10), transparent 28%),
+    linear-gradient(180deg,#050714 0%,#080b19 45%,#050714 100%);
+}
+
+/* remove hard rectangle feeling */
+.copy-card,
+.stat-card,
+.info-card,
+.faq-item,
+.image-card,
+.contact-card,
+.feature-panel,
+.form-wrap,
+.cta-panel,
+.program-card,
+.quote-panel,
+.list-panel,
+.collage-card,
+.band-panel{
+  border-radius:28px;
+}
+
+/* make photos feel editorial instead of boxed */
+.hero-card,
+.hero-card img{
+  border-radius:34px 34px 8px 34px;
+}
+
+.program-card:nth-child(1){
+  transform:rotate(-1deg);
+}
+
+.program-card:nth-child(2){
+  transform:rotate(1deg) translateY(26px);
+}
+
+.program-card:hover{
+  transform:translateY(-8px) rotate(0deg);
+}
+
+.image-card.square{
+  border-radius:42px 12px 42px 12px;
+  transform:rotate(1.5deg);
+}
+
+.copy-card:nth-child(1){
+  border-radius:36px 12px 36px 12px;
+}
+
+.copy-card:nth-child(2){
+  border-radius:12px 36px 12px 36px;
+  transform:translateY(34px);
+}
+
+/* make sections overlap slightly so it feels less stacked */
+.section{
+  border-top:0;
+  position:relative;
+}
+
+.home-about-split{
+  margin-top:-20px;
+}
+
+/* softer cards, less visible borders */
+.copy-card,
+.program-card,
+.stat-card,
+.cta-panel,
+.image-card{
+  border-color:rgba(255,255,255,.07);
+  background:rgba(11,16,38,.54);
+  backdrop-filter:blur(14px);
+}
+
+/* impact cards should not look like 3 identical boxes */
+.impact-stats{
+  align-items:start;
+}
+
+.impact-stats .stat-card:nth-child(1){
+  border-radius:44px 18px 32px 18px;
+  transform:translateY(12px) rotate(-1deg);
+}
+
+.impact-stats .stat-card:nth-child(2){
+  border-radius:18px 44px 18px 32px;
+  transform:translateY(-16px);
+}
+
+.impact-stats .stat-card:nth-child(3){
+  border-radius:32px 18px 44px 18px;
+  transform:translateY(22px) rotate(1deg);
+}
+
+/* photo strip like a scattered collage */
+.photo-strip{
+  overflow:hidden;
+}
+
+.collage-track--natural{
+  grid-auto-columns:minmax(360px, 38vw);
+  align-items:center;
+  padding:50px 20px 70px;
+}
+
+.collage-card{
+  border:0;
+  background:transparent;
+  overflow:visible;
+  box-shadow:none;
+}
+
+.collage-card img{
+  border-radius:34px;
+  box-shadow:0 28px 80px rgba(0,0,0,.36);
+  border:1px solid rgba(255,255,255,.10);
+}
+
+.collage-card:nth-child(1){
+  transform:rotate(-3deg) translateY(20px);
+}
+
+.collage-card:nth-child(2){
+  transform:rotate(2deg) translateY(-30px);
+}
+
+.collage-card:nth-child(3){
+  transform:rotate(-1.5deg) translateY(34px);
+}
+
+.collage-card:nth-child(4){
+  transform:rotate(3deg) translateY(-18px);
+}
+
+.collage-card:nth-child(5){
+  transform:rotate(-2deg) translateY(26px);
+}
+
+/* make CTA feel designed, not boxed */
+.cta-panel{
+  border-radius:44px 14px 44px 14px;
+  position:relative;
+  overflow:hidden;
+}
+
+.cta-panel::before{
+  content:"";
+  position:absolute;
+  width:260px;
+  height:260px;
+  right:-80px;
+  top:-80px;
+  background:radial-gradient(circle, rgba(124,108,255,.35), transparent 70%);
+  pointer-events:none;
+}
+
+/* buttons less rectangular */
+.btn{
+  border-radius:999px;
+}
+
+/* nav less boxed */
+.site-header{
+  border-bottom:0;
+}
+
+.brand-logo{
+  border-radius:12px;
+}
+
+/* mobile reset so it doesn't get messy */
+@media (max-width:980px){
+  .program-card:nth-child(1),
+  .program-card:nth-child(2),
+  .copy-card:nth-child(2),
+  .impact-stats .stat-card,
+  .image-card.square,
+  .collage-card{
+    transform:none;
+  }
+
+  .copy-card,
+  .program-card,
+  .stat-card,
+  .cta-panel,
+  .image-card,
+  .hero-card,
+  .hero-card img{
+    border-radius:26px;
+  }
+}
