@@ -1033,3 +1033,322 @@ body{
     border-radius:26px;
   }
 }
+
+/* === Origami-inspired playful editorial redesign === */
+
+:root{
+  --cream:#fff7df;
+  --yellow:#f7df72;
+  --sky:#b9dff5;
+  --navy:#050714;
+  --blue:#2833b8;
+  --red:#e95d4f;
+  --white:#ffffff;
+}
+
+body{
+  background:var(--cream);
+  color:#171717;
+}
+
+/* softer playful font direction */
+h1,h2,h3,
+.hero h1,
+.section-heading h2,
+.cta-panel h2{
+  font-family:Georgia, 'Times New Roman', serif;
+  font-weight:700;
+  letter-spacing:-.04em;
+}
+
+/* header becomes lighter + less boxy */
+.site-header{
+  background:#050714;
+}
+
+.nav-shell{
+  border:0;
+  background:transparent;
+}
+
+.nav-links a{
+  color:#fff;
+  font-family:Georgia, 'Times New Roman', serif;
+  font-size:1.15rem;
+}
+
+.nav-links a:hover,
+.nav-links a.active{
+  background:transparent;
+  text-decoration:underline;
+  text-underline-offset:8px;
+}
+
+.header-actions .btn-secondary{
+  background:transparent;
+  border:0;
+  color:#fff;
+}
+
+.btn{
+  border-radius:999px;
+}
+
+/* hero like poster/collage */
+.hero{
+  background:
+    linear-gradient(rgba(14,20,70,.76),rgba(14,20,70,.76)),
+    radial-gradient(circle at 20% 20%, rgba(255,255,255,.12) 0 2px, transparent 2px);
+  background-size:auto, 120px 120px;
+  color:white;
+  padding:80px 0 140px;
+  position:relative;
+  overflow:hidden;
+}
+
+.hero::after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:-1px;
+  height:90px;
+  background:
+    radial-gradient(circle at 50px -20px, transparent 70px, var(--cream) 72px);
+  background-size:100px 100px;
+  background-repeat:repeat-x;
+}
+
+.hero-grid{
+  grid-template-columns:1fr 1fr;
+  gap:70px;
+  min-height:auto;
+}
+
+.hero-copy{
+  text-align:left;
+  padding:80px 0;
+}
+
+.hero h1{
+  font-size:clamp(4.5rem,10vw,8rem);
+  line-height:.88;
+  color:white;
+  text-transform:none;
+}
+
+.hero p{
+  color:rgba(255,255,255,.85);
+  font-size:1.22rem;
+  line-height:1.8;
+}
+
+.eyebrow{
+  color:white;
+  font-family:Georgia, 'Times New Roman', serif;
+  font-size:1.25rem;
+}
+
+.hero-card{
+  border:0;
+  background:transparent;
+  box-shadow:none;
+  transform:rotate(2deg);
+}
+
+.hero-card img{
+  border-radius:0;
+  border:8px solid white;
+  box-shadow:0 30px 70px rgba(0,0,0,.35);
+  aspect-ratio:4/3.6;
+  object-fit:cover;
+}
+
+.hero-card::after{
+  content:"";
+  display:none;
+}
+
+/* all dark sections become light editorial sections */
+.section{
+  background:var(--cream);
+  color:#171717;
+  padding:110px 0;
+  position:relative;
+}
+
+.section:nth-of-type(even){
+  background:var(--yellow);
+}
+
+/* wavy top/bottom section rhythm */
+.section:nth-of-type(even)::before{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  top:-1px;
+  height:70px;
+  background:
+    radial-gradient(circle at 50px 90px, var(--cream) 70px, transparent 72px);
+  background-size:100px 100px;
+  background-repeat:repeat-x;
+}
+
+.section-heading{
+  text-align:center;
+  margin-bottom:60px;
+}
+
+.section-heading h2{
+  font-size:clamp(3.2rem,7vw,6rem);
+  color:#171717;
+  max-width:none;
+}
+
+.section-heading p{
+  color:#333;
+  font-size:1.15rem;
+}
+
+/* remove corporate card look */
+.copy-card,
+.stat-card,
+.info-card,
+.faq-item,
+.image-card,
+.contact-card,
+.feature-panel,
+.form-wrap,
+.cta-panel,
+.program-card,
+.quote-panel,
+.list-panel{
+  background:white;
+  color:#171717;
+  border:0;
+  border-radius:0;
+  box-shadow:0 18px 45px rgba(0,0,0,.12);
+}
+
+.copy-card,
+.feature-panel,
+.quote-panel,
+.list-panel,
+.contact-card,
+.form-wrap{
+  padding:42px;
+}
+
+/* impact numbers like Origami */
+.stat-card{
+  background:white;
+  min-height:230px;
+  text-align:center;
+  border-radius:50% 50% 45% 45%;
+  box-shadow:none;
+}
+
+.stat-card strong{
+  font-family:Georgia, 'Times New Roman', serif;
+  color:#171717;
+  font-size:clamp(3.5rem,7vw,6rem);
+}
+
+.stat-card span{
+  color:#333;
+}
+
+/* collage photos */
+.collage-card,
+.image-card{
+  background:transparent;
+  box-shadow:none;
+  overflow:visible;
+}
+
+.collage-card img,
+.image-card img,
+.program-card img{
+  border:8px solid white;
+  box-shadow:0 22px 55px rgba(0,0,0,.22);
+}
+
+.collage-card:nth-child(1){
+  transform:rotate(-3deg) translateY(25px);
+}
+
+.collage-card:nth-child(2){
+  transform:rotate(2deg) translateY(-35px);
+}
+
+.collage-card:nth-child(3){
+  transform:rotate(-2deg) translateY(30px);
+}
+
+.collage-card:nth-child(4){
+  transform:rotate(3deg) translateY(-20px);
+}
+
+/* program cards feel more handmade */
+.program-card{
+  transform:rotate(-1deg);
+}
+
+.program-card:nth-child(even){
+  transform:rotate(1.5deg) translateY(25px);
+}
+
+.program-card .body{
+  padding:34px;
+}
+
+.program-card h3{
+  font-family:Georgia, 'Times New Roman', serif;
+  font-size:2rem;
+}
+
+.program-card p,
+.copy-card p,
+.feature-panel p,
+.list-panel li{
+  color:#333;
+}
+
+/* CTA poster */
+.cta-panel{
+  background:#ef6f9f;
+  color:white;
+  text-align:center;
+  border-radius:0;
+  box-shadow:none;
+  overflow:hidden;
+}
+
+.cta-panel h2,
+.cta-panel p{
+  color:white;
+  max-width:none;
+}
+
+/* mobile cleanup */
+@media(max-width:980px){
+  .hero-grid{
+    grid-template-columns:1fr;
+  }
+
+  .hero-card,
+  .program-card,
+  .program-card:nth-child(even),
+  .collage-card{
+    transform:none;
+  }
+
+  .section-heading{
+    text-align:left;
+  }
+
+  .stat-card{
+    border-radius:32px;
+  }
+}
