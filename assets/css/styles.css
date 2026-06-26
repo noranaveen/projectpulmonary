@@ -1046,8 +1046,6 @@ body{
 /* === Origami-inspired playful editorial redesign === */
 
 :root{
-  --cream:#fff7df;
-  --yellow:#f7df72;
   --sky:#b9dff5;
   --navy:#050714;
   --blue:#2833b8;
@@ -1055,10 +1053,6 @@ body{
   --white:#ffffff;
 }
 
-body{
-  background:var(--cream);
-  color:#171717;
-}
 
 /* softer playful font direction */
 h1,h2,h3,
@@ -1180,14 +1174,12 @@ h1,h2,h3,
 
 /* all dark sections become light editorial sections */
 .section{
-  background:var(--cream);
   color:#171717;
   padding:110px 0;
   position:relative;
 }
 
 .section:nth-of-type(even){
-  background:var(--yellow);
 }
 
 /* wavy top/bottom section rhythm */
@@ -1198,8 +1190,6 @@ h1,h2,h3,
   right:0;
   top:-1px;
   height:70px;
-  background:
-    radial-gradient(circle at 50px 90px, var(--cream) 70px, transparent 72px);
   background-size:100px 100px;
   background-repeat:repeat-x;
 }
@@ -1326,7 +1316,6 @@ h1,h2,h3,
 
 /* CTA poster */
 .cta-panel{
-  background:#ef6f9f;
   color:white;
   text-align:center;
   border-radius:0;
