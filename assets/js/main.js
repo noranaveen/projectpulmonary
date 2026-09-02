@@ -98,22 +98,27 @@
     counters.forEach(el => countIo.observe(el));
   }
 
-  /* ---------- cloud drops -> land + splash on volunteer button ---------- */
-  const waterStage = document.querySelector('[data-water-stage]');
-  if (waterStage) {
-    let triggered = false;
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting && !triggered) {
-          triggered = true;
-          requestAnimationFrame(() => waterStage.classList.add('is-falling'));
-          setTimeout(() => waterStage.classList.add('is-landed'), 1520);
-        }
+  /* ---------- blog article filters (Articles index) ---------- */
+  document.querySelectorAll('[data-articles-grid]').forEach((grid) => {
+    const filters = document.querySelectorAll('.article-filter');
+    const cards = grid.querySelectorAll('.blog-card');
+    const countEl = document.querySelector('.articles-count');
+    if (!filters.length || !cards.length) return;
+    filters.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        filters.forEach(f => f.classList.remove('is-active'));
+        btn.classList.add('is-active');
+        const filter = btn.getAttribute('data-filter');
+        let visible = 0;
+        cards.forEach((card) => {
+          const match = filter === 'all' || card.getAttribute('data-category') === filter;
+          card.style.display = match ? '' : 'none';
+          if (match) visible++;
+        });
+        if (countEl) countEl.textContent = `${visible} article${visible === 1 ? '' : 's'}`;
       });
-    }, { threshold:.6 });
-    io.observe(waterStage);
-  }
-
+    });
+  });
 
   /* ---------- FAQ accordion ---------- */
   document.querySelectorAll('.faq-item').forEach(item => {
