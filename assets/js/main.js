@@ -27,6 +27,18 @@
     }));
   }
 
+  /* ---------- desktop rail collapse ---------- */
+  /* Open by default on every load; the tab just lets a visitor tuck the
+     rail away while reading, or bring it back. */
+  const railToggle = document.querySelector('[data-rail-toggle]');
+  if (railToggle) {
+    railToggle.addEventListener('click', () => {
+      const collapsed = document.body.classList.toggle('rail-collapsed');
+      railToggle.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
+      railToggle.setAttribute('aria-label', collapsed ? 'Open navigation' : 'Collapse navigation');
+    });
+  }
+
   /* ---------- scroll reveal ---------- */
   const revealEls = document.querySelectorAll('.rv, .rv-l, .rv-r, .rv-scale');
   if ('IntersectionObserver' in window) {
