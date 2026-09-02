@@ -266,23 +266,6 @@
     });
   });
 
-  /* ---------- breath-line scroll spine ---------- */
-  const breathPath = document.querySelector('.breath-line path');
-  if (breathPath) {
-    const len = breathPath.getTotalLength ? breathPath.getTotalLength() : 1000;
-    breathPath.style.strokeDasharray = len;
-    breathPath.style.strokeDashoffset = len;
-    const updateBreath = () => {
-      const doc = document.documentElement;
-      const max = doc.scrollHeight - doc.clientHeight;
-      const p = max > 0 ? Math.min(1, window.scrollY / max) : 0;
-      breathPath.style.strokeDashoffset = len - (len * p);
-    };
-    updateBreath();
-    window.addEventListener('scroll', updateBreath, { passive:true });
-    window.addEventListener('resize', updateBreath);
-  }
-
   /* ---------- auto-scroll testimonials (About page reflections) ---------- */
   document.querySelectorAll('.voices-rail-wide').forEach((rail) => {
     const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;

@@ -296,24 +296,6 @@ main{container-type:inline-size}
 .ambient{display:none}
 
 /* =========================================================
-   BREATH LINE — signature scroll spine (sunset gradient thread)
-   ========================================================= */
-.breath-line{
-  position:fixed;top:0;left:26px;height:100vh;width:64px;z-index:5;pointer-events:none;
-  display:none;
-}
-.breath-line svg{height:100%;width:100%;overflow:visible}
-.breath-line path{
-  fill:none;stroke:url(#breathGrad);stroke-width:2;stroke-linecap:round;
-  stroke-dasharray:1;stroke-dashoffset:1;opacity:.6;
-  pathLength:1;
-}
-.breath-line .breath-dot{opacity:0;transition:opacity .3s}
-@media (min-width:1180px){
-  .breath-line{display:block}
-}
-
-/* =========================================================
    HERO
    ========================================================= */
 .hero{
