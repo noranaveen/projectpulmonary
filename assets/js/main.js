@@ -28,8 +28,9 @@
   }
 
   /* ---------- desktop rail collapse ---------- */
-  /* Open by default on every load; the tab just lets a visitor tuck the
-     rail away while reading, or bring it back. */
+  /* Collapsed by default on every load (via body.rail-collapsed in the
+     HTML); the tab lets a visitor bring the rail out, or tuck it away
+     again. */
   const railToggle = document.querySelector('[data-rail-toggle]');
   if (railToggle) {
     railToggle.addEventListener('click', () => {

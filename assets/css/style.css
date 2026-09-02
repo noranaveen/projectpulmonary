@@ -29,6 +29,7 @@
   --ember-ink:  #FF8452;
   --pink-ink:   #FF8FC4;
   --gold-ink:   #FFD37E;
+  --violet-ink: #C3B2FF;
 
   /* --- ink (light text, since the whole site now sits on a dark canvas) --- */
   --ink:        #F3EFFC;
@@ -102,6 +103,11 @@ ul{margin:0;padding:0}
 :focus-visible{outline:2px solid var(--ember);outline-offset:3px;border-radius:2px}
 
 /* ============ layout helpers ============ */
+/* container-type lets a few breakpoints below respond to the actual
+   content width (which shrinks when the desktop rail is open) instead
+   of the raw viewport width, so the hero never gets squished against
+   the rail. */
+main{container-type:inline-size}
 .wrap{position:relative;z-index:1;width:min(var(--max), calc(100% - 64px));margin-inline:auto}
 .wrap-narrow{width:min(var(--max-narrow), calc(100% - 48px));margin-inline:auto}
 .bleed{width:100%}
@@ -121,8 +127,8 @@ ul{margin:0;padding:0}
 .kicker.pink::before{background:var(--sunset-pink)}
 .kicker.gold{color:var(--gold-ink)}
 .kicker.gold::before{background:var(--sunset-gold)}
-.kicker.violet{color:var(--violet-2)}
-.kicker.violet::before{background:var(--violet-2)}
+.kicker.violet{color:var(--violet-ink)}
+.kicker.violet::before{background:var(--violet-ink)}
 
 .eyebrow{display:none}
 
@@ -165,21 +171,21 @@ ul{margin:0;padding:0}
 .nav-links a.active::after{transform:scaleX(1)}
 .header-actions{display:flex;align-items:center;gap:8px;flex:none}
 .icon-btn{
-  width:40px;height:40px;border-radius:50%;display:grid;place-items:center;flex:none;
+  width:44px;height:44px;border-radius:50%;display:grid;place-items:center;flex:none;
   border:1px solid var(--line);background:transparent;transition:transform .25s, border-color .25s, background .25s;color:var(--ink)
 }
 .icon-btn:hover{border-color:var(--ember);color:var(--ember)}
-.icon-btn svg{width:17px;height:17px}
+.icon-btn svg{width:18px;height:18px}
 .mobile-toggle{
-  display:none;width:42px;height:42px;border-radius:50%;border:1px solid var(--line);
+  display:none;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);
   background:transparent;position:relative;flex:none;margin-left:auto;order:3;
 }
 .mobile-toggle span,.mobile-toggle::before,.mobile-toggle::after{
-  content:"";position:absolute;left:13px;right:13px;height:1.5px;background:var(--ink);border-radius:2px;transition:.3s var(--ease);
+  content:"";position:absolute;left:14px;right:14px;height:1.5px;background:var(--ink);border-radius:2px;transition:.3s var(--ease);
 }
-.mobile-toggle::before{top:16px}
-.mobile-toggle span{top:21px}
-.mobile-toggle::after{top:26px}
+.mobile-toggle::before{top:17px}
+.mobile-toggle span{top:22px}
+.mobile-toggle::after{top:27px}
 .mobile-toggle[aria-expanded="true"]::before{transform:translateY(5px) rotate(45deg)}
 .mobile-toggle[aria-expanded="true"]::after{transform:translateY(-5px) rotate(-45deg)}
 .mobile-toggle[aria-expanded="true"] span{opacity:0}
@@ -240,7 +246,7 @@ ul{margin:0;padding:0}
   .rail-toggle svg{width:16px;height:16px}
   body.rail-collapsed .site-header{transform:translateX(-100%)}
   body.rail-collapsed main,body.rail-collapsed .footer{margin-left:0}
-  body.rail-collapsed .rail-toggle{left:0;transform:translateX(0)}
+  body.rail-collapsed .rail-toggle{left:14px;transform:translateX(0)}
 }
 
 /* =========================================================
@@ -427,6 +433,29 @@ ul{margin:0;padding:0}
   .hero-stat-card{left:4%;bottom:-6%;max-width:190px;padding:14px 18px}
   .hero-stat-card strong{font-size:1.4rem}
 }
+/* Keyed off the available content width rather than the viewport — so
+   opening the desktop rail (which eats var(--rail-w) of width) reflows
+   the hero early instead of squeezing both columns together.
+   Two tiers: first shrink the photo/blob column so the two-column
+   layout still has room to breathe, then fully stack once there just
+   isn't enough width left for two columns to look right. */
+@container (max-width:1220px){
+  .hero-collage-grid{grid-template-columns:1.28fr .72fr;gap:20px}
+  .hero-collage-art{min-height:auto}
+  .hero-collage-photo{width:92%}
+  .hero-stamp{width:92px;height:92px;font-size:.6rem}
+  .hero-stat-card{max-width:172px;padding:14px 16px;left:-4%}
+  .hero-stat-card strong{font-size:1.44rem}
+}
+@container (max-width:980px){
+  .hero-collage{padding:114px 0 70px}
+  .hero-collage-grid{grid-template-columns:1fr;gap:56px}
+  .hero-collage-art{order:-1;min-height:420px}
+  .hero-collage-photo{width:82%;margin:0 auto}
+  .hero-stamp{width:88px;height:88px;font-size:.58rem;top:-4%;left:0}
+  .hero-stat-card{left:4%;bottom:-6%;max-width:190px;padding:14px 18px}
+  .hero-stat-card strong{font-size:1.4rem}
+}
 
 @media (max-width:980px){
   .hero{padding:120px 0 56px}
@@ -494,13 +523,13 @@ ul{margin:0;padding:0}
    BENTO MOSAIC — an asymmetric photo/accent grid, not a
    repeating stack of identical rows.
    ========================================================= */
-.bento-grid{display:grid;grid-template-columns:1.35fr 1fr;grid-template-rows:1fr 1fr;gap:20px;min-height:640px}
+.bento-grid{display:grid;grid-template-columns:1.35fr 1fr;grid-template-rows:1fr 1fr;gap:20px;min-height:640px;list-style:none;margin:0;padding:0}
 .bento-cell{border-radius:20px;border:1px solid var(--line);overflow:hidden;position:relative}
 .bento-cell-a{grid-column:1;grid-row:1/3}
 .bento-cell-b{grid-column:2;grid-row:1}
 .bento-cell-c{grid-column:2;grid-row:2}
 .bento-photo{
-  display:flex;align-items:flex-end;color:#fff;text-decoration:none;
+  display:flex;align-items:flex-end;color:#fff;text-decoration:none;position:relative;height:100%;
   background-size:cover;background-position:center;box-shadow:var(--shadow-md);
   transition:transform .5s var(--ease);
 }
@@ -519,7 +548,7 @@ ul{margin:0;padding:0}
 .bento-cell-copy .link-arrow:hover{color:var(--sunset-gold);border-color:var(--sunset-gold)}
 .bento-accent{
   background:var(--navy);color:#fff;padding:30px 28px;display:flex;flex-direction:column;justify-content:center;
-  box-shadow:var(--shadow-sm);
+  box-shadow:var(--shadow-sm);height:100%;
 }
 .bento-quote{font-family:var(--font-display);font-style:italic;font-size:1.24rem;line-height:1.4;color:#fff;margin-bottom:16px}
 .bento-quote-who{font-family:var(--font-data);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--sunset-gold)}
@@ -546,6 +575,14 @@ ul{margin:0;padding:0}
   position:relative;width:100%;aspect-ratio:16/9;border-radius:4px;overflow:hidden;
   border:1px solid var(--line);box-shadow:var(--shadow-sm);background:var(--paper-2);
 }
+/* signals the embed is a live, pannable/zoomable map rather than a static image */
+.map-hint{
+  position:absolute;z-index:2;top:14px;left:14px;pointer-events:none;
+  display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.94);color:var(--navy);
+  font-family:var(--font-data);font-size:.66rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  padding:7px 13px;border-radius:999px;box-shadow:var(--shadow-sm);
+}
+.map-hint svg{width:12px;height:12px;flex:none}
 .map-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 @media (max-width:700px){.map-embed{aspect-ratio:4/5}.map-panel{padding:32px 22px}}
 
@@ -600,6 +637,14 @@ ul{margin:0;padding:0}
   font-family:var(--font-display);font-weight:600;font-size:.98rem;letter-spacing:-.01em;color:#55506C;
 }
 @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* =========================================================
+   HERO SOCIAL PROOF (as-featured-in strip)
+   ========================================================= */
+.hero-featured{margin-top:22px;padding-top:20px;border-top:1px solid var(--line)}
+.hero-featured-label{display:block;font-family:var(--font-data);font-size:.66rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:10px}
+.hero-featured-list{display:flex;flex-wrap:wrap;align-items:center;gap:10px 22px;list-style:none;margin:0;padding:0}
+.hero-featured-list li{font-family:var(--font-display);font-weight:600;font-size:1rem;color:var(--ink-soft);letter-spacing:-.005em}
 
 /* =========================================================
    CLOSING CTA — dark accent block
@@ -719,7 +764,7 @@ ul{margin:0;padding:0}
 
 /* staggered numbered rows (About: why/how/distinct) */
 .numrow-list{display:grid;gap:0}
-.numrow{display:grid;grid-template-columns:80px 1fr;gap:26px;padding:32px 0;border-top:1px solid var(--line-soft)}
+.numrow{display:grid;grid-template-columns:80px 1fr;gap:26px;padding:42px 0;border-top:1px solid var(--line-soft)}
 .numrow:first-child{border-top:0;padding-top:0}
 .numrow .nn{font-family:var(--font-display);font-style:italic;font-size:1.7rem;color:var(--paper-3);font-weight:500}
 .numrow h3{font-size:1.26rem;margin-bottom:10px;max-width:26ch;font-weight:600}
@@ -1008,11 +1053,15 @@ a.ci-value:hover{color:var(--ember-ink)}
 .collage-track.dragging{cursor:grabbing}
 .collage-card{flex:0 0 auto;width:min(70vw,340px);border-radius:6px;overflow:hidden;box-shadow:var(--shadow-sm);border:1px solid var(--line)}
 .collage-card:nth-child(2n){margin-top:22px}
-.collage-card img{width:100%;height:280px;object-fit:cover;transition:transform .6s var(--ease);cursor:zoom-in}
+/* a single shared aspect-ratio (rather than a per-card fixed pixel height)
+   keeps every photo in the strip cropped to the same proportions at any
+   width, and lets the browser reserve the correct box before the image
+   has loaded — no layout shift as the gallery paints in. */
+.collage-card img{width:100%;aspect-ratio:6/5;height:auto;object-fit:cover;transition:transform .6s var(--ease);cursor:zoom-in}
 .collage-card:hover img{transform:scale(1.04)}
 .collage-wrap-lg .collage-card{width:min(76vw,420px)}
-.collage-wrap-lg .collage-card img{height:340px}
-@media (max-width:700px){.collage-wrap-lg .collage-card{width:min(80vw,320px)}.collage-wrap-lg .collage-card img{height:260px}}
+.collage-wrap-lg .collage-card img{aspect-ratio:6/5}
+@media (max-width:700px){.collage-wrap-lg .collage-card{width:min(80vw,320px)}}
 
 /* =========================================================
    CURSOR GLOW (subtle, desktop only)
