@@ -226,21 +226,21 @@ ul{margin:0;padding:0}
 
   /* rail collapse toggle — a small edge tab docked to the rail's trailing
      edge; when collapsed the rail slides fully off-canvas and the tab
-     slides with it to the screen edge, flipping its chevron */
+     slides with it to the screen edge. A plain hamburger glyph (three
+     stacked bars) marks it as the menu control in both states. */
   .rail-toggle{
     position:fixed;z-index:210;top:40px;left:var(--rail-w);transform:translateX(-50%);
-    width:30px;height:30px;border-radius:50%;flex:none;
+    width:34px;height:34px;border-radius:50%;flex:none;
     display:flex;align-items:center;justify-content:center;
     background:var(--card-solid);border:1px solid var(--line);color:var(--ink-soft);
     box-shadow:var(--shadow-sm);cursor:pointer;
     transition:left .4s var(--ease), color .25s, border-color .25s;
   }
   .rail-toggle:hover{color:var(--ember-ink);border-color:var(--ember-ink)}
-  .rail-toggle svg{width:14px;height:14px;transition:transform .4s var(--ease)}
+  .rail-toggle svg{width:16px;height:16px}
   body.rail-collapsed .site-header{transform:translateX(-100%)}
   body.rail-collapsed main,body.rail-collapsed .footer{margin-left:0}
   body.rail-collapsed .rail-toggle{left:0;transform:translateX(0)}
-  body.rail-collapsed .rail-toggle svg{transform:rotate(180deg)}
 }
 
 /* =========================================================
