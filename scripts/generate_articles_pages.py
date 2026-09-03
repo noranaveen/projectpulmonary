@@ -119,7 +119,6 @@ def final_cta_html(p):
       <div class="wrap">
         <span class="eyebrow on-navy">Get involved</span>
         <h2>Join a chapter, start one, or support the mission directly.</h2>
-        <p>Whether you volunteer at a school drive, launch a chapter, or contribute resources, there are multiple ways to take part in Project Pulmonary.</p>
         <div class="hero-cta">
           <a class="btn btn-brand" href="{p}join-us.html">Get Involved</a>
         </div>

@@ -112,23 +112,18 @@ main{container-type:inline-size}
 .wrap-narrow{width:min(var(--max-narrow), calc(100% - 48px));margin-inline:auto}
 .bleed{width:100%}
 
-/* kicker — hairline-rule section label, replaces the old pill "eyebrow" */
+/* kicker — small uppercase section label (no leading rule/dash — plain label) */
 .kicker{
   display:flex;align-items:center;gap:12px;
   font-family:var(--font-data);font-weight:600;font-size:.76rem;
   letter-spacing:.12em;text-transform:uppercase;color:var(--ember-ink);
   margin-bottom:20px;
 }
-.kicker::before{content:"";width:34px;height:2px;background:var(--ember);flex:none;border-radius:2px}
 .kicker.on-navy{color:var(--sunset-gold)}
-.kicker.on-navy::before{background:var(--sunset-gold)}
 .kicker.center{justify-content:center}
 .kicker.pink{color:var(--pink-ink)}
-.kicker.pink::before{background:var(--sunset-pink)}
 .kicker.gold{color:var(--gold-ink)}
-.kicker.gold::before{background:var(--sunset-gold)}
 .kicker.violet{color:var(--violet-ink)}
-.kicker.violet::before{background:var(--violet-ink)}
 
 .eyebrow{display:none}
 
