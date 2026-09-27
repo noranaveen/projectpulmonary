@@ -87,43 +87,38 @@ def fetch_published_articles():
 # ---------------------------------------------------------------------------
 
 def header_html(p, active):
-    def cls(name):
-        return ' class="active"' if active == name else ""
-
     return f"""<a class="skip-link" href="#main">Skip to content</a>
-<div class="ambient" aria-hidden="true"></div>
-<div class="cursor-glow" aria-hidden="true"></div>
-<header class="site-header" data-header>
-<div class="wrap">
-<a class="brand" href="{p}index.html" aria-label="Project Pulmonary home">
-<img class="brand-logo" src="{p}assets/images/logo-square.png" alt="Project Pulmonary logo">
-<span>PROJECT&nbsp;PULMONARY</span>
-</a>
-<button class="mobile-toggle" data-menu-toggle aria-expanded="false" aria-label="Open navigation"><span></span></button>
-<div class="nav-shell" data-nav-shell>
-<nav class="nav-links" aria-label="Primary"><a href="{p}index.html"{cls('home')}>Home</a><a href="{p}about.html"{cls('about')}>About</a><a href="{p}impact.html"{cls('impact')}>Impact</a><a href="{p}join-us.html"{cls('join')}>Get Involved</a><a href="{p}press.html"{cls('press')}>Press</a><a href="{p}articles.html"{cls('articles')}>Articles</a><a href="{p}support-us.html"{cls('support')}>Support Us</a><a href="{p}contact.html"{cls('contact')}>Contact</a></nav>
-</div>
-<div class="header-actions">
-<a class="icon-btn" href="https://www.instagram.com/projectpulmonary?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener" aria-label="Project Pulmonary on Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg></a>
-<a class="btn btn-outline" href="{p}support-us.html">Support Us</a>
-</div>
-</div>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="{p}index.html" aria-label="Project Pulmonary home">
+      <img class="brand-logo" src="{p}assets/images/logo-mark.png" alt="" width="46" height="46">
+      <span class="brand-name">Project Pulmonary</span>
+    </a>
+    <button class="mobile-toggle" data-menu-toggle aria-expanded="false" aria-label="Open navigation"><span></span></button>
+    <div class="nav-shell" data-nav-shell>
+      <nav class="nav-links" aria-label="Primary"><a href="{p}about.html">About</a><a href="{p}impact.html">Impact</a><a href="{p}press.html">Press</a><a href="{p}articles.html" class="active" aria-current="page">Articles</a><a href="{p}join-us.html">Get Involved</a><a href="{p}contact.html">Contact</a></nav>
+      <div class="header-actions">
+        <a class="icon-btn" href="https://www.instagram.com/projectpulmonary/" target="_blank" rel="noopener" aria-label="Project Pulmonary on Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg></a>
+        <a class="btn btn-donate btn-sm" href="{p}support-us.html"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21s-7.5-4.9-10-9.3C.5 8.6 2.4 4.5 6.3 4.5c2.3 0 3.9 1.3 5.7 3.3 1.8-2 3.4-3.3 5.7-3.3 3.9 0 5.8 4.1 4.3 7.2C19.5 16.1 12 21 12 21z"/></svg> Donate</a>
+      </div>
+    </div>
+  </div>
 </header>
 """
 
 
 def final_cta_html(p):
-    return f"""<section class="section" style="padding-top:0">
+    return f"""<section class="cta-band">
+  <div class="bg"><img src="{p}assets/images/field/group-scale.jpg" alt="" loading="lazy"></div>
   <div class="wrap">
-    <div class="final-cta rv-scale">
-      <div class="wrap">
-        <span class="eyebrow on-navy">Get involved</span>
-        <h2>Join a chapter, start one, or support the mission directly.</h2>
-        <div class="hero-cta">
-          <a class="btn btn-brand" href="{p}join-us.html">Get Involved</a>
-        </div>
-      </div>
+    <h2>Every chapter starts with one student.</h2>
+    <p>Start one at your school, fund the next delivery, or bring Project Pulmonary to your department.</p>
+    <div class="btn-row">
+      <a class="btn btn-donate" href="{p}support-us.html"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21s-7.5-4.9-10-9.3C.5 8.6 2.4 4.5 6.3 4.5c2.3 0 3.9 1.3 5.7 3.3 1.8-2 3.4-3.3 5.7-3.3 3.9 0 5.8 4.1 4.3 7.2C19.5 16.1 12 21 12 21z"/></svg> Donate</a>
+      <a class="btn btn-ghost-light" href="https://docs.google.com/forms/d/1ozyfQ0EB1CHo-yMgzCIMyOmZ1Df-O7NJyY22K40L0c8/edit" target="_blank" rel="noopener">Start a chapter</a>
+      <a class="btn btn-ghost-light" href="{p}support-us.html#partner">Partner with us</a>
     </div>
+    <p class="fine">Project Pulmonary is a 501(c)(3). Every gift is tax-deductible.</p>
   </div>
 </section>
 """
@@ -131,73 +126,61 @@ def final_cta_html(p):
 
 def footer_html(p):
     return f"""<footer class="footer">
-<div class="wrap">
-<div class="footer-top">
-<div class="rv">
-<div class="brand"><img class="brand-logo" src="{p}assets/images/logo-square.png" alt="Project Pulmonary logo"><span>PROJECT&nbsp;PULMONARY</span></div>
-<p class="footer-lede">A youth-led 501(c)(3) nonprofit protecting the people who protect us through pulmonary-health education, hydration drives, Letters for Lungs, and student-led chapters nationwide.</p>
-<div class="footer-socials">
-<a class="icon-btn" href="https://linktr.ee/projectpulmonary" target="_blank" rel="noopener" aria-label="Linktree"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M9 7h8v8"/></svg></a>
-<a class="icon-btn" href="https://www.instagram.com/projectpulmonary?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg></a>
-</div>
-</div>
-<div class="rv d1">
-<h4>Navigate</h4>
-<ul>
-<li><a href="{p}about.html">About</a></li>
-<li><a href="{p}impact.html">Impact</a></li>
-<li><a href="{p}press.html">Press</a></li>
-<li><a href="{p}articles.html">Articles</a></li>
-<li><a href="{p}faq.html">FAQs</a></li>
-</ul>
-</div>
-<div class="rv d2">
-<h4>Get involved</h4>
-<ul>
-<li><a href="{p}join-us.html#chapter-application-section">Start a chapter</a></li>
-<li><a href="{p}join-us.html#ways">Volunteer</a></li>
-<li><a href="{p}support-us.html">Support Us</a></li>
-</ul>
-</div>
-<div class="rv d3">
-<h4>Contact</h4>
-<ul>
-<li><a href="mailto:projectpulmonary@gmail.com">projectpulmonary@gmail.com</a></li>
-</ul>
-</div>
-</div>
-<div class="footer-bottom">
-<span>&copy; 2026 Project Pulmonary. All rights reserved.</span>
-<span>501(c)(3) nonprofit organization</span>
-</div>
-</div>
+  <div class="wrap">
+    <div class="footer-top">
+      <div>
+        <a class="brand" href="{p}index.html"><img class="brand-logo" src="{p}assets/images/logo-mark.png" alt="" width="46" height="46"><span class="brand-name">Project Pulmonary</span></a>
+        <p class="footer-lede">Youth-led and firefighter-focused. Students in 190+ chapters protecting the people who protect us.</p>
+        <div class="footer-socials">
+          <a class="icon-btn" href="https://www.instagram.com/projectpulmonary/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg></a>
+          <a class="icon-btn" href="https://linktr.ee/projectpulmonary" target="_blank" rel="noopener" aria-label="Linktree"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7"/><path d="M9 7h8v8"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <h4>Organization</h4>
+        <ul>
+          <li><a href="{p}about.html">About</a></li>
+          <li><a href="{p}impact.html">Impact</a></li>
+          <li><a href="{p}press.html">Press</a></li>
+          <li><a href="{p}articles.html">Research articles</a></li>
+          <li><a href="{p}faq.html">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Get involved</h4>
+        <ul>
+          <li><a href="https://docs.google.com/forms/d/1ozyfQ0EB1CHo-yMgzCIMyOmZ1Df-O7NJyY22K40L0c8/edit" target="_blank" rel="noopener">Start a chapter</a></li>
+          <li><a href="{p}join-us.html">Volunteer</a></li>
+          <li><a href="{p}support-us.html#partner">Partner with us</a></li>
+          <li><a href="{p}contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:projectpulmonary@gmail.com">projectpulmonary@gmail.com</a></li>
+          <li>Los Angeles, California</li>
+        </ul>
+        <a class="btn btn-donate btn-sm" href="{p}support-us.html"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21s-7.5-4.9-10-9.3C.5 8.6 2.4 4.5 6.3 4.5c2.3 0 3.9 1.3 5.7 3.3 1.8-2 3.4-3.3 5.7-3.3 3.9 0 5.8 4.1 4.3 7.2C19.5 16.1 12 21 12 21z"/></svg> Donate</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Project Pulmonary. All rights reserved.</span>
+      <!-- TODO: add the EIN from the IRS determination letter, e.g. "EIN 12-3456789" -->
+      <span>Project Pulmonary is a registered 501(c)(3) nonprofit. Donations are tax-deductible to the extent allowed by law.</span>
+    </div>
+  </div>
 </footer>
-<script src="{p}assets/js/main.js"></script>
+<script src="{p}assets/js/main.js?v=202609272"></script>
 """
 
 
-MARQUEE_HTML = """<div class="marquee-head">
-  <span class="eyebrow" style="justify-content:center">Backed &amp; Funded By</span>
-  <p>Project Pulmonary's programs are made possible with support from these partners.</p>
-</div>
-<div class="marquee">
-  <div class="marquee-track">
-    <span class="marquee-plate"><img src="assets/images/sponsors/coffee-bean.png" alt="The Coffee Bean & Tea Leaf" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span class="sponsor-fallback">Coffee Bean</span></span>
-    <span class="marquee-plate plate-dark"><img src="assets/images/sponsors/mathnasium.png" alt="Mathnasium" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span class="sponsor-fallback">Mathnasium</span></span>
-    <span class="marquee-plate"><img src="assets/images/sponsors/c2-education.png" alt="C2 Education" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span class="sponsor-fallback">C2 Education</span></span>
-    <span class="marquee-plate"><img src="assets/images/sponsors/rhapsody-education.png" alt="Rhapsody Education" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span class="sponsor-fallback">Rhapsody Education</span></span>
-    <span class="marquee-plate"><img src="assets/images/sponsors/american-lung-association.png" alt="American Lung Association" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span class="sponsor-fallback">American Lung Association</span></span>
-    <span class="marquee-plate"><img src="assets/images/sponsors/origami-for-good.png" alt="Origami for Good" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span class="sponsor-fallback">Origami for Good</span></span>
-    <span class="marquee-plate"><img src="assets/images/sponsors/apricus-literacy.png" alt="Apricus Literacy" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span class="sponsor-fallback">Apricus Literacy</span></span>
-    <span class="marquee-plate"><img src="assets/images/sponsors/coffee-bean.png" alt="The Coffee Bean & Tea Leaf" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span class="sponsor-fallback">Coffee Bean</span></span>
-    <span class="marquee-plate plate-dark"><img src="assets/images/sponsors/mathnasium.png" alt="Mathnasium" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span class="sponsor-fallback">Mathnasium</span></span>
-    <span class="marquee-plate"><img src="assets/images/sponsors/c2-education.png" alt="C2 Education" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span class="sponsor-fallback">C2 Education</span></span>
-    <span class="marquee-plate"><img src="assets/images/sponsors/rhapsody-education.png" alt="Rhapsody Education" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span class="sponsor-fallback">Rhapsody Education</span></span>
-    <span class="marquee-plate"><img src="assets/images/sponsors/american-lung-association.png" alt="American Lung Association" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span class="sponsor-fallback">American Lung Association</span></span>
-    <span class="marquee-plate"><img src="assets/images/sponsors/origami-for-good.png" alt="Origami for Good" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span class="sponsor-fallback">Origami for Good</span></span>
-    <span class="marquee-plate"><img src="assets/images/sponsors/apricus-literacy.png" alt="Apricus Literacy" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span class="sponsor-fallback">Apricus Literacy</span></span>
+MARQUEE_HTML = """<section class="section tight">
+  <div class="wrap">
+    <div class="sec-head center"><span class="eyebrow">Supported by</span><h2 class="h-md">Partners who make every drive possible</h2></div>
+    <div class="partners rv"><div class="partner"><img src="assets/images/sponsors/coffee-bean.png" alt="The Coffee Bean &amp; Tea Leaf" loading="lazy"></div><div class="partner"><img src="assets/images/sponsors/american-lung-association.png" alt="American Lung Association" loading="lazy"></div><div class="partner"><img src="assets/images/sponsors/mathnasium.png" alt="Mathnasium" loading="lazy"></div><div class="partner"><img src="assets/images/sponsors/c2-education.png" alt="C2 Education" loading="lazy"></div><div class="partner"><img src="assets/images/sponsors/rhapsody-education.png" alt="Rhapsody Education" loading="lazy"></div><div class="partner"><img src="assets/images/sponsors/origami-for-good.png" alt="Origami for Good" loading="lazy"></div><div class="partner"><img src="assets/images/sponsors/apricus-literacy.png" alt="Apricus Literacy" loading="lazy"></div></div>
   </div>
-</div>
+</section>
 """
 
 
@@ -255,34 +238,35 @@ def build_articles_index(articles):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Project Pulmonary | Articles</title>
 <meta name="description" content="Research articles from the Project Pulmonary team on wildfire smoke exposure, biomarkers, and firefighter lung health.">
-<meta name="theme-color" content="#100D28">
+<meta name="theme-color" content="#162C9F">
 <meta property="og:title" content="Project Pulmonary | Articles">
 <meta property="og:description" content="Research articles from the Project Pulmonary team on wildfire smoke exposure, biomarkers, and firefighter lung health.">
 <meta property="og:type" content="website">
-<meta property="og:image" content="https://www.projectpulmonary.com/assets/images/hero-firestation.jpeg">
+<meta property="og:image" content="https://www.projectpulmonary.com/assets/images/field/letters-turnout-crew.jpg">
 <meta property="og:url" content="https://www.projectpulmonary.com/articles.html">
 <link rel="canonical" href="https://www.projectpulmonary.com/articles.html">
 <link rel="icon" href="assets/images/logo-square.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="assets/css/style.css">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap">
+<link rel="stylesheet" href="assets/css/style.css?v=202609272">
 <script type="application/ld+json">{{"@context":"https://schema.org","@type":"NGO","name":"Project Pulmonary","email":"projectpulmonary@gmail.com","sameAs":["https://linktr.ee/projectpulmonary","https://www.instagram.com/projectpulmonary?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="]}}</script>
 </head>
 <body>
 {header_html("", "articles")}
 <main id="main">
 
-<section class="page-hero">
-  <div class="wrap page-hero-grid">
-    <div class="rv">
-      <span class="eyebrow">Research &amp; Articles</span>
-      <h1>The science behind why firefighter lung health can't wait.</h1>
-      <p class="lede">Original research write-ups from the Project Pulmonary team, translating peer-reviewed studies on wildfire smoke exposure into plain-language explainers.</p>
-    </div>
-    <div class="page-hero-media rv-r"><img src="assets/images/hero-firestation.jpeg" alt="Project Pulmonary students and firefighters standing in front of a fire truck"></div>
+<section class="page-hero ">
+  <div class="bg"><img src="assets/images/field/letters-writing.jpg" alt="" fetchpriority="high"></div>
+  <div class="wrap">
+    <span class="eyebrow light">Research</span>
+    <h1>Firefighter lung health, in plain language.</h1>
+    <p class="lede">Peer-reviewed research on wildfire smoke exposure, translated by our student research team.</p>
+    
   </div>
 </section>
 
-<section class="section" style="padding-top:0">
+<section class="section">
   <div class="wrap" style="max-width:1100px">
 
     <div class="articles-toolbar rv">
@@ -376,19 +360,21 @@ def build_article_page(article, articles, index):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{esc(title)} | Project Pulmonary</title>
 <meta name="description" content="{esc_attr(excerpt)}">
-<meta name="theme-color" content="#100D28">
+<meta name="theme-color" content="#162C9F">
 <meta property="og:title" content="{esc_attr(title)} | Project Pulmonary">
 <meta property="og:description" content="{esc_attr(excerpt)}">
 <meta property="og:type" content="article">
-<meta property="og:image" content="https://www.projectpulmonary.com/assets/images/hero-firestation.jpeg">
+<meta property="og:image" content="https://www.projectpulmonary.com/assets/images/field/letters-turnout-crew.jpg">
 <meta property="og:url" content="https://www.projectpulmonary.com/articles/{esc_attr(slug)}.html">
 <link rel="canonical" href="https://www.projectpulmonary.com/articles/{esc_attr(slug)}.html">
 <link rel="icon" href="../assets/images/logo-square.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap">
+<link rel="stylesheet" href="../assets/css/style.css?v=202609272">
 <script type="application/ld+json">{{"@context":"https://schema.org","@type":"Article","headline":"{esc_attr(title)}","author":{{"@type":"Person","name":"{esc_attr(article.get('authorName', ''))}"}},"publisher":{{"@type":"Organization","name":"Project Pulmonary"}}}}</script>
 </head>
-<body>
+<body class="header-solid">
 {header_html("../", "articles")}
 <main id="main">
 

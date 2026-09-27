@@ -27,61 +27,60 @@
     }));
   }
 
-  /* ---------- desktop rail collapse ---------- */
-  /* Collapsed by default on every load (via body.rail-collapsed in the
-     HTML); the tab lets a visitor bring the rail out, or tuck it away
-     again. */
-  const railToggle = document.querySelector('[data-rail-toggle]');
-  if (railToggle) {
-    railToggle.addEventListener('click', () => {
-      const collapsed = document.body.classList.toggle('rail-collapsed');
-      railToggle.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
-      railToggle.setAttribute('aria-label', collapsed ? 'Open navigation' : 'Collapse navigation');
+  /* ---------- scroll reveal (robust: never leaves content hidden) ---------- */
+  const revealEls = Array.from(document.querySelectorAll('.rv'));
+  const sweep = () => {
+    const limit = window.innerHeight * 0.96;
+    revealEls.forEach(el => {
+      if (!el.classList.contains('is-in') && el.getBoundingClientRect().top < limit) el.classList.add('is-in');
     });
+  };
+  let sweepQueued = false;
+  window.addEventListener('scroll', () => {
+    if (sweepQueued) return;
+    sweepQueued = true;
+    requestAnimationFrame(() => { sweepQueued = false; sweep(); });
+  }, { passive:true });
+  window.addEventListener('resize', sweep);
+  window.addEventListener('load', sweep);
+  sweep();
+  /* anchor jumps and print: show everything */
+  window.addEventListener('hashchange', () => revealEls.forEach(el => el.classList.add('is-in')));
+  window.addEventListener('beforeprint', () => revealEls.forEach(el => el.classList.add('is-in')));
+
+  /* ---------- hero video: respect reduced motion + pause toggle ---------- */
+  const heroVideo = document.querySelector('[data-hero-video]');
+  const heroToggle = document.querySelector('[data-video-toggle]');
+  if (heroVideo) {
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const setIcon = () => {
+      if (!heroToggle) return;
+      const paused = heroVideo.paused;
+      heroToggle.setAttribute('aria-label', paused ? 'Play background video' : 'Pause background video');
+      heroToggle.innerHTML = paused
+        ? '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>'
+        : '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>';
+    };
+    if (reduce) { heroVideo.removeAttribute('autoplay'); heroVideo.pause(); }
+    heroVideo.addEventListener('play', setIcon);
+    heroVideo.addEventListener('pause', setIcon);
+    setIcon();
+    if (heroToggle) heroToggle.addEventListener('click', () => { heroVideo.paused ? heroVideo.play() : heroVideo.pause(); });
   }
 
-  /* ---------- scroll reveal ---------- */
-  const revealEls = document.querySelectorAll('.rv, .rv-l, .rv-r, .rv-scale');
-  if ('IntersectionObserver' in window) {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-in');
-          io.unobserve(entry.target);
-        }
-      });
-    }, { threshold:.16, rootMargin:'0px 0px -6% 0px' });
-    revealEls.forEach(el => io.observe(el));
-  } else {
-    revealEls.forEach(el => el.classList.add('is-in'));
-  }
-
-  /* ---------- mouse-responsive ambient background ---------- */
-  const ambient = document.querySelector('.ambient');
-  const cursorGlow = document.querySelector('.cursor-glow');
-  if (ambient || cursorGlow) {
-    window.addEventListener('pointermove', (e) => {
-      const x = (e.clientX / window.innerWidth - 0.5) * 40;
-      const y = (e.clientY / window.innerHeight - 0.5) * 40;
-      if (ambient) {
-        ambient.style.setProperty('--mx', x.toFixed(1));
-        ambient.style.setProperty('--my', y.toFixed(1));
-      }
-      if (cursorGlow) {
-        cursorGlow.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%,-50%)`;
-      }
-    }, { passive:true });
-  }
-
-  /* ---------- tilt effect for mission cards ---------- */
-  document.querySelectorAll('.mcard').forEach(card => {
-    card.addEventListener('pointermove', (e) => {
-      const r = card.getBoundingClientRect();
-      const px = (e.clientX - r.left) / r.width - 0.5;
-      const py = (e.clientY - r.top) / r.height - 0.5;
-      card.style.transform = `perspective(800px) rotateX(${(-py*7).toFixed(2)}deg) rotateY(${(px*7).toFixed(2)}deg) translateY(-4px)`;
+  /* ---------- click-to-play testimonial videos (sound on) ---------- */
+  document.querySelectorAll('[data-vcard]').forEach((card) => {
+    const video = card.querySelector('video');
+    const btn = card.querySelector('.play');
+    if (!video || !btn) return;
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('[data-vcard] video').forEach(v => { if (v !== video) v.pause(); });
+      card.classList.add('is-playing');
+      video.controls = true;
+      video.muted = false;
+      video.play();
     });
-    card.addEventListener('pointerleave', () => { card.style.transform = ''; });
+    video.addEventListener('ended', () => { card.classList.remove('is-playing'); video.controls = false; video.load(); });
   });
 
   /* ---------- animated counters (count up once) ---------- */
@@ -108,7 +107,12 @@
         countIo.unobserve(el);
       });
     }, { threshold:.5 });
-    counters.forEach(el => countIo.observe(el));
+    const reduceCount = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    counters.forEach(el => {
+      if (reduceCount) return; /* real number is already in the HTML */
+      el.textContent = (el.getAttribute('data-prefix') || '') + '0' + (el.getAttribute('data-suffix') || '');
+      countIo.observe(el);
+    });
   }
 
   /* ---------- blog article filters (Articles index) ---------- */
@@ -138,6 +142,7 @@
     const q = item.querySelector('.faq-q');
     const wrap = item.querySelector('.faq-a-wrap');
     if (!q || !wrap) return;
+    q.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); q.click(); } });
     q.addEventListener('click', () => {
       const isOpen = item.classList.contains('is-open');
       item.closest('.faq-list')?.querySelectorAll('.faq-item.is-open').forEach(other => {
@@ -150,9 +155,11 @@
       if (isOpen) {
         item.classList.remove('is-open');
         wrap.style.maxHeight = null;
+        q.setAttribute('aria-expanded','false');
       } else {
         item.classList.add('is-open');
         wrap.style.maxHeight = wrap.scrollHeight + 'px';
+        q.setAttribute('aria-expanded','true');
       }
     });
   });
@@ -293,7 +300,7 @@
   });
 
   /* ---------- photo lightbox (masonry + mini-collage) ---------- */
-  const zoomableImgs = document.querySelectorAll('.masonry img, .mini-collage img, .collage-card img');
+  const zoomableImgs = document.querySelectorAll('.gallery img, .collage-card img');
   if (zoomableImgs.length) {
     const overlay = document.createElement('div');
     overlay.className = 'lightbox-overlay';
