@@ -236,6 +236,14 @@ def build_articles_index(articles):
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-254P9HKWLQ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){{dataLayer.push(arguments);}}
+  gtag('js', new Date());
+  gtag('config', 'G-254P9HKWLQ');
+</script>
 <title>Project Pulmonary | Articles</title>
 <meta name="description" content="Research articles from the Project Pulmonary team on wildfire smoke exposure, biomarkers, and firefighter lung health.">
 <meta name="theme-color" content="#162C9F">
@@ -358,6 +366,14 @@ def build_article_page(article, articles, index):
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-254P9HKWLQ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){{dataLayer.push(arguments);}}
+  gtag('js', new Date());
+  gtag('config', 'G-254P9HKWLQ');
+</script>
 <title>{esc(title)} | Project Pulmonary</title>
 <meta name="description" content="{esc_attr(excerpt)}">
 <meta name="theme-color" content="#162C9F">
