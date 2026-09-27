@@ -257,7 +257,7 @@ def build_articles_index(articles):
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap">
-<link rel="stylesheet" href="assets/css/style.css?v=202609272">
+<link rel="stylesheet" href="assets/css/style.css?v=202609273">
 <script type="application/ld+json">{{"@context":"https://schema.org","@type":"NGO","name":"Project Pulmonary","email":"projectpulmonary@gmail.com","sameAs":["https://linktr.ee/projectpulmonary","https://www.instagram.com/projectpulmonary?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="]}}</script>
 </head>
 <body>
@@ -387,7 +387,7 @@ def build_article_page(article, articles, index):
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap">
-<link rel="stylesheet" href="../assets/css/style.css?v=202609272">
+<link rel="stylesheet" href="../assets/css/style.css?v=202609273">
 <script type="application/ld+json">{{"@context":"https://schema.org","@type":"Article","headline":"{esc_attr(title)}","author":{{"@type":"Person","name":"{esc_attr(article.get('authorName', ''))}"}},"publisher":{{"@type":"Organization","name":"Project Pulmonary"}}}}</script>
 </head>
 <body class="header-solid">
