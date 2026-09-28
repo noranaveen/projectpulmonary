@@ -111,7 +111,7 @@ def final_cta_html(p):
     return f"""<section class="cta-band">
   <div class="bg"><img src="{p}assets/images/field/group-scale.jpg" alt="" loading="lazy"></div>
   <div class="wrap">
-    <h2>Every chapter starts with one student.</h2>
+    <h2>Start a Chapter or Support Our Work</h2>
     <p>Start one at your school, fund the next delivery, or bring Project Pulmonary to your department.</p>
     <div class="btn-row">
       <a class="btn btn-donate" href="{p}support-us.html"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21s-7.5-4.9-10-9.3C.5 8.6 2.4 4.5 6.3 4.5c2.3 0 3.9 1.3 5.7 3.3 1.8-2 3.4-3.3 5.7-3.3 3.9 0 5.8 4.1 4.3 7.2C19.5 16.1 12 21 12 21z"/></svg> Donate</a>
@@ -130,7 +130,7 @@ def footer_html(p):
     <div class="footer-top">
       <div>
         <a class="brand" href="{p}index.html"><img class="brand-logo" src="{p}assets/images/logo-mark.png" alt="" width="46" height="46"><span class="brand-name">Project Pulmonary</span></a>
-        <p class="footer-lede">Youth-led and firefighter-focused. Students in 230+ chapters across 40+ countries protecting the people who protect us.</p>
+        <p class="footer-lede">A youth-led nonprofit with 230+ student chapters in 40+ countries working to protect firefighters&rsquo; lung health.</p>
         <div class="footer-socials">
           <a class="icon-btn" href="https://www.instagram.com/projectpulmonary/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg></a>
           <a class="icon-btn" href="https://linktr.ee/projectpulmonary" target="_blank" rel="noopener" aria-label="Linktree"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7"/><path d="M9 7h8v8"/></svg></a>
@@ -177,7 +177,7 @@ def footer_html(p):
 
 MARQUEE_HTML = """<section class="section tight">
   <div class="wrap">
-    <div class="sec-head center"><span class="eyebrow">Supported by</span><h2 class="h-md">Partners who make every drive possible</h2></div>
+    <div class="sec-head center"><span class="eyebrow">Supported by</span><h2 class="h-md">Our Partners and Sponsors</h2></div>
     <div class="partners rv"><div class="partner"><img src="assets/images/sponsors/coffee-bean.png" alt="The Coffee Bean &amp; Tea Leaf" loading="lazy"></div><div class="partner"><img src="assets/images/sponsors/american-lung-association.png" alt="American Lung Association" loading="lazy"></div><div class="partner"><img src="assets/images/sponsors/mathnasium.png" alt="Mathnasium" loading="lazy"></div><div class="partner"><img src="assets/images/sponsors/c2-education.png" alt="C2 Education" loading="lazy"></div><div class="partner"><img src="assets/images/sponsors/rhapsody-education.png" alt="Rhapsody Education" loading="lazy"></div><div class="partner"><img src="assets/images/sponsors/origami-for-good.png" alt="Origami for Good" loading="lazy"></div><div class="partner"><img src="assets/images/sponsors/apricus-literacy.png" alt="Apricus Literacy" loading="lazy"></div></div>
   </div>
 </section>
@@ -268,7 +268,7 @@ def build_articles_index(articles):
   <div class="bg"><img src="assets/images/field/letters-writing.jpg" alt="" fetchpriority="high"></div>
   <div class="wrap">
     <span class="eyebrow light">Research</span>
-    <h1>Firefighter lung health, in plain language.</h1>
+    <h1>Research Articles on Firefighter Lung Health</h1>
     <p class="lede">Peer-reviewed research on wildfire smoke exposure, translated by our student research team.</p>
     
   </div>
