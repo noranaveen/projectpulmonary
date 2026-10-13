@@ -8,6 +8,11 @@ rhapsody-education.png
 american-lung-association.png
 origami-for-good.png
 apricus-literacy.png
+liquid-iv.png
+911-day.png
+youth-service-america.png
+americorps.png
+alcsi.png
 
 Until a file is added, the site automatically shows the sponsor's
 name as text instead -- so nothing will look broken either way.

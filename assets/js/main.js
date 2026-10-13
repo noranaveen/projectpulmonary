@@ -331,4 +331,17 @@
     window.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
   }
 
+
+  /* ---------- partner logos: show the name until a logo file is added ---------- */
+  document.querySelectorAll('.partner img').forEach(img => {
+    const swap = () => {
+      if (!img.parentNode) return;
+      const s = document.createElement('span');
+      s.className = 'partner-name';
+      s.textContent = img.getAttribute('alt') || '';
+      img.replaceWith(s);
+    };
+    img.addEventListener('error', swap, { once:true });
+  });
+
 })();

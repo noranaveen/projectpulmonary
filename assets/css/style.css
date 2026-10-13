@@ -286,10 +286,11 @@ ul{margin:0;padding:0;list-style:none}
 .cta-band .fine{font-size:.84rem;color:#AEB9E3;margin-top:18px;margin-bottom:0}
 
 /* ---------- partners ---------- */
-.partners{display:grid;grid-template-columns:repeat(7,1fr);gap:14px}
+.partners{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
 .partner{display:grid;place-items:center;aspect-ratio:1;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:16px}
 .partner img{width:92%;height:92%;object-fit:contain;transition:transform .25s}
 .partner:hover img{transform:scale(1.05)}
+.partner-name{font-family:var(--font-display);font-weight:700;font-size:clamp(.92rem,1.4vw,1.12rem);line-height:1.2;text-align:center;color:var(--blue);letter-spacing:-.01em}
 
 /* ---------- cards / generic ---------- */
 .card{background:#fff;border:1px solid var(--line);border-radius:var(--radius-lg);padding:26px}
@@ -603,3 +604,34 @@ a.chapter-card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
 @media (prefers-reduced-motion:reduce){
   .why-track i,.why-stack i{transition:none;transform:none}
 }
+
+/* ---------- initiatives: home feature, archive list, sponsor spotlight ---------- */
+.initiative-feature .feature-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.initiative-feature .btn-row{margin-top:0}
+.badge-new{display:inline-flex;align-items:center;gap:8px;font-size:.78rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--blue-950);background:#FFD66B;padding:7px 14px;border-radius:999px;margin-bottom:18px}
+.badge-new::before{content:"";width:8px;height:8px;border-radius:50%;background:currentColor}
+.init-list{border-top:2px solid var(--ink)}
+.init-row{display:grid;grid-template-columns:110px 1fr auto;gap:24px;align-items:center;padding:22px 4px;border-bottom:1px solid var(--line);text-decoration:none;color:inherit;transition:background .2s}
+.init-row:hover{background:var(--purple-50)}
+.init-row .when{font-size:.8rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--purple)}
+.init-row .what{color:var(--ink-2);font-size:.97rem}
+.init-row .what strong{display:block;font-family:var(--font-display);font-size:1.3rem;color:var(--ink);margin-bottom:2px}
+.tag{font-size:.76rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:6px 12px;border-radius:999px;background:var(--blue-50);color:var(--ink-3);white-space:nowrap}
+.tag-live{background:var(--purple);color:#fff}
+.ref-card{background:#fff;color:var(--ink);border-radius:var(--radius-lg);padding:32px;box-shadow:var(--shadow)}
+.on-dark .ref-card .eyebrow{color:var(--purple)}
+.ref-card h3{color:var(--ink);font-size:1.6rem;margin-bottom:14px}
+.ref-card ol{margin:0;padding-left:1.3em;display:grid;gap:10px;color:var(--ink-2)}
+.ref-card li::marker{font-weight:700;color:var(--purple)}
+.sponsor-spot{display:grid;grid-template-columns:220px 1fr;gap:clamp(28px,5vw,64px);align-items:center}
+.sponsor-spot .sponsor-logo{aspect-ratio:1;padding:24px}
+.sponsor-spot .partner-name{font-size:1.6rem}
+.sponsor-num{color:var(--purple)}
+@media (max-width:640px){
+  .init-row{grid-template-columns:1fr auto;gap:6px 14px}
+  .init-row .when{grid-column:1/-1}
+  .sponsor-spot{grid-template-columns:1fr}
+  .sponsor-spot .sponsor-logo{width:160px}
+  .initiative-feature{min-height:0}
+}
+.sponsor-spot .lede{margin-top:14px}
