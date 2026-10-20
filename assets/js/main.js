@@ -344,4 +344,137 @@
     img.addEventListener('error', swap, { once:true });
   });
 
+
+  /* =========================================================
+     Fire + water motion (all of it switches off for reduced motion)
+     ========================================================= */
+  const reduceAll = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- hero embers: a few warm sparks rising from the bottom ---------- */
+  document.querySelectorAll('[data-embers]').forEach((cv) => {
+    if (reduceAll) { cv.remove(); return; }
+    const ctx = cv.getContext('2d');
+    let w = 0, h = 0, dpr = Math.min(window.devicePixelRatio || 1, 2), parts = [], running = true;
+    const size = () => { w = cv.clientWidth; h = cv.clientHeight; cv.width = w * dpr; cv.height = h * dpr; ctx.setTransform(dpr,0,0,dpr,0,0); };
+    const spawn = (init) => ({
+      x: Math.random() * w,
+      y: init ? Math.random() * h : h + 10,
+      r: .8 + Math.random() * 1.8,
+      vy: .35 + Math.random() * .9,
+      sway: Math.random() * Math.PI * 2,
+      life: 0,
+      max: 260 + Math.random() * 320
+    });
+    size();
+    const count = () => Math.round(Math.min(46, Math.max(18, w / 32)));
+    for (let i = 0; i < count(); i++) parts.push(spawn(true));
+    window.addEventListener('resize', size);
+    new IntersectionObserver(es => { running = es[0].isIntersecting; if (running) requestAnimationFrame(frame); }).observe(cv);
+    function frame(){
+      if (!running) return;
+      ctx.clearRect(0,0,w,h);
+      ctx.globalCompositeOperation = 'lighter';
+      parts.forEach((p, i) => {
+        p.life++; p.sway += .02; p.y -= p.vy; p.x += Math.sin(p.sway) * .35;
+        const fade = Math.min(1, p.life / 40) * Math.max(0, 1 - p.life / p.max) * Math.min(1, p.y / (h * .35));
+        const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 4);
+        g.addColorStop(0, `rgba(255,190,110,${.9 * fade})`);
+        g.addColorStop(.4, `rgba(255,122,61,${.45 * fade})`);
+        g.addColorStop(1, 'rgba(255,90,40,0)');
+        ctx.fillStyle = g; ctx.beginPath(); ctx.arc(p.x, p.y, p.r * 4, 0, Math.PI * 2); ctx.fill();
+        if (p.life > p.max || p.y < -10) parts[i] = spawn(false);
+      });
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  });
+
+  /* ---------- typed rotating word in the hero ---------- */
+  document.querySelectorAll('[data-typed]').forEach((el) => {
+    const words = el.getAttribute('data-typed').split('|');
+    if (reduceAll || words.length < 2) return;
+    let wi = 0, ci = words[0].length, deleting = true;
+    const step = () => {
+      const word = words[wi];
+      if (deleting) {
+        ci--; el.textContent = word.slice(0, ci);
+        if (ci <= 0) { deleting = false; wi = (wi + 1) % words.length; return setTimeout(step, 260); }
+        return setTimeout(step, 38);
+      }
+      const next = words[wi]; ci++; el.textContent = next.slice(0, ci);
+      if (ci >= next.length) { deleting = true; return setTimeout(step, 2200); }
+      setTimeout(step, 70);
+    };
+    setTimeout(step, 2600);
+  });
+
+  /* ---------- mission band: smoke clears, lungs draw, words light up as you scroll ---------- */
+  document.querySelectorAll('[data-mission]').forEach((band) => {
+    const text = band.querySelector('[data-words]');
+    const keys = ['lung','cancer','prevention','firefighters,','pulmonary','rehabilitation','wildfire','carcinogens.'];
+    let words = [];
+    if (text) {
+      const raw = text.textContent.trim().split(/\s+/);
+      text.innerHTML = raw.map((wd, i) => `<span class="w${i > 1 && keys.includes(wd.toLowerCase()) ? ' key' : ''}">${wd}</span>`).join(' ');
+      words = Array.from(text.querySelectorAll('.w'));
+    }
+    const paths = Array.from(band.querySelectorAll('.lungs .lp'));
+    paths.forEach(pth => { try { pth.style.setProperty('--len', Math.ceil(pth.getTotalLength())); } catch(e){} });
+    const cv = band.querySelector('[data-smoke]');
+    let progress = 0;
+    const update = () => {
+      const r = band.getBoundingClientRect(), vh = window.innerHeight;
+      progress = Math.max(0, Math.min(1, (vh * .85 - r.top) / (r.height * .9)));
+      const lit = Math.round(progress * 1.25 * words.length);
+      words.forEach((wd, i) => wd.classList.toggle('on', i < lit));
+      paths.forEach((pth, i) => pth.style.setProperty('--draw', Math.max(0, Math.min(1, progress * 1.6 - i * .08)).toFixed(3)));
+    };
+    if (reduceAll) { words.forEach(wd => wd.classList.add('on')); paths.forEach(pth => pth.style.setProperty('--draw', 1)); if (cv) cv.remove(); return; }
+    update();
+    window.addEventListener('scroll', () => requestAnimationFrame(update), { passive:true });
+    window.addEventListener('resize', update);
+
+    /* smoke: soft grey puffs that thin out as the statement is read */
+    if (!cv) return;
+    const ctx = cv.getContext('2d');
+    let w = 0, h = 0, puffs = [], running = false;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const size = () => { w = cv.clientWidth; h = cv.clientHeight; cv.width = w * dpr; cv.height = h * dpr; ctx.setTransform(dpr,0,0,dpr,0,0); };
+    size(); window.addEventListener('resize', size);
+    const mk = () => ({ x: Math.random() * w, y: h + 60 + Math.random() * h * .5, r: 60 + Math.random() * 120, vy: .25 + Math.random() * .45, vx: (Math.random() - .5) * .25, a: .05 + Math.random() * .07 });
+    for (let i = 0; i < 18; i++) { const p = mk(); p.y = Math.random() * h; puffs.push(p); }
+    new IntersectionObserver(es => { running = es[0].isIntersecting; if (running) requestAnimationFrame(frame); }).observe(band);
+    function frame(){
+      if (!running) return;
+      ctx.clearRect(0,0,w,h);
+      const thin = 1 - progress * .85;
+      puffs.forEach((p, i) => {
+        p.y -= p.vy; p.x += p.vx; p.r += .06;
+        const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r);
+        g.addColorStop(0, `rgba(190,196,220,${p.a * thin})`);
+        g.addColorStop(1, 'rgba(190,196,220,0)');
+        ctx.fillStyle = g; ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fill();
+        if (p.y + p.r < -20) puffs[i] = mk();
+      });
+      requestAnimationFrame(frame);
+    }
+  });
+
+  /* ---------- water droplet fills when it scrolls into view ---------- */
+  const drops = document.querySelectorAll('[data-drop]');
+  if (drops.length) {
+    if (reduceAll || !('IntersectionObserver' in window)) drops.forEach(d => d.classList.add('is-in'));
+    else {
+      const dio = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-in'); dio.unobserve(e.target); } }), { threshold:.4 });
+      drops.forEach(d => dio.observe(d));
+    }
+  }
+
+  /* ---------- gallery videos: only play while visible ---------- */
+  document.querySelectorAll('.gallery video, .tri video').forEach(v => {
+    if (!('IntersectionObserver' in window)) return;
+    if (reduceAll) { v.removeAttribute('autoplay'); v.pause(); return; }
+    new IntersectionObserver(es => es.forEach(e => { e.isIntersecting ? v.play().catch(()=>{}) : v.pause(); }), { threshold:.2 }).observe(v);
+  });
+
 })();
