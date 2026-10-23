@@ -477,4 +477,14 @@
     new IntersectionObserver(es => es.forEach(e => { e.isIntersecting ? v.play().catch(()=>{}) : v.pause(); }), { threshold:.2 }).observe(v);
   });
 
+
+  /* ---------- click-to-load YouTube (About page news videos) ---------- */
+  document.querySelectorAll('[data-yt]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.getAttribute('data-yt');
+      btn.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0" title="${btn.getAttribute('aria-label') || 'Video'}" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>`;
+      btn.style.cursor = 'default';
+    }, { once:true });
+  });
+
 })();
