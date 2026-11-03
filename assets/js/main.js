@@ -488,3 +488,28 @@
   });
 
 })();
+
+/* ---------- commendations grid: filters + detail dialog ---------- */
+document.querySelectorAll('[data-cm]').forEach((wrap) => {
+  const cards = Array.from(wrap.querySelectorAll('.cm-card'));
+  wrap.querySelectorAll('.cm-chip').forEach((chip) => chip.addEventListener('click', () => {
+    wrap.querySelectorAll('.cm-chip').forEach(c => c.classList.toggle('is-on', c === chip));
+    const f = chip.dataset.f;
+    cards.forEach(c => c.classList.toggle('is-hidden', f !== 'all' && c.dataset.kind !== f));
+  }));
+  const dlg = wrap.parentElement.querySelector('.cm-modal');
+  if (!dlg || typeof dlg.showModal !== 'function') { cards.forEach(c => c.addEventListener('click', () => window.open(c.dataset.cmLink, '_blank', 'noopener'))); return; }
+  const body = dlg.querySelector('.cm-mbody');
+  const esc = s => String(s || '').replace(/[&<>"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch]));
+  cards.forEach((c) => c.addEventListener('click', () => {
+    const d = c.dataset, name = c.querySelector('.cm-name').innerHTML;
+    const seals = Array.from(c.querySelectorAll('.cm-seal img')).map(i => `<img src="${i.getAttribute('src')}" alt="">`).join('');
+    const logo = c.querySelector('.cm-logo img');
+    const media = d.cmImg ? `<div class="cm-mimg"><img src="${esc(d.cmImg)}" alt=""></div>` : `<div class="cm-mimg is-logo"><img src="${logo ? logo.getAttribute('src') : ''}" alt=""></div>`;
+    const isIG = /instagram\.com/.test(d.cmLink);
+    body.innerHTML = `${media}<div class="cm-mtxt">${seals ? `<div class="cm-mseals">${seals}</div>` : ''}<span class="cm-date">${esc(d.cmDate)} &middot; ${d.cmOffice}</span><h3>${name}</h3><p><strong>${d.cmDet}</strong></p><p>${d.cmLong}</p>${d.cmExtra ? `<img class="cm-extra" src="${esc(d.cmExtra)}" alt="" loading="lazy">` : ''}<a class="btn btn-primary" href="${esc(d.cmLink)}" target="_blank" rel="noopener">${isIG ? 'View the post' : 'Read more'}</a></div>`;
+    dlg.showModal();
+  }));
+  dlg.querySelector('.cm-x').addEventListener('click', () => dlg.close());
+  dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });
+});
