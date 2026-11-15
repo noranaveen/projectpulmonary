@@ -507,7 +507,7 @@ document.querySelectorAll('[data-cm]').forEach((wrap) => {
     const logo = c.querySelector('.cm-logo img');
     const media = d.cmImg ? `<div class="cm-mimg"><img src="${esc(d.cmImg)}" alt=""></div>` : `<div class="cm-mimg is-logo"><img src="${logo ? logo.getAttribute('src') : ''}" alt=""></div>`;
     const isIG = /instagram\.com/.test(d.cmLink);
-    body.innerHTML = `${media}<div class="cm-mtxt">${seals ? `<div class="cm-mseals">${seals}</div>` : ''}<span class="cm-date">${esc(d.cmDate)} &middot; ${d.cmOffice}</span><h3>${name}</h3><p><strong>${d.cmDet}</strong></p><p>${d.cmLong}</p>${d.cmExtra ? `<img class="cm-extra" src="${esc(d.cmExtra)}" alt="" loading="lazy">` : ''}<a class="btn btn-primary" href="${esc(d.cmLink)}" target="_blank" rel="noopener">${isIG ? 'View the post' : 'Read more'}</a></div>`;
+    body.innerHTML = `${media}<div class="cm-mtxt">${seals ? `<div class="cm-mseals">${seals}</div>` : ''}<span class="cm-date">${esc(d.cmDate)} &middot; ${d.cmOffice}</span><h3>${name}</h3><p><strong>${d.cmDet}</strong></p><p>${d.cmLong}</p>${d.cmExtra ? `<img class="cm-extra" src="${esc(d.cmExtra)}" alt="" loading="lazy">` : ''}${d.cmLink ? `<a class="btn btn-primary" href="${esc(d.cmLink)}" target="_blank" rel="noopener">${isIG ? 'View the post' : 'Read more'}</a>` : ''}</div>`;
     dlg.showModal();
   }));
   dlg.querySelector('.cm-x').addEventListener('click', () => dlg.close());
