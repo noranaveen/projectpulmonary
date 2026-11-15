@@ -1458,3 +1458,4 @@ a.lm-item:hover{transform:translateY(-4px);box-shadow:0 16px 30px -18px rgba(20,
 .recog-solo{grid-template-columns:1fr!important}
 .bt-card img{object-fit:contain}
 .bt-card>.pp-frame{position:absolute;inset:0;height:100%;border-radius:inherit}
+.cm-seals:empty{height:56px;visibility:hidden}
