@@ -11,7 +11,7 @@
     '.grid-3 .card>img', '.uses .card>img', '.give .card>img', '.steps .step>img',
     '.article-cover>img', '.split-media>img', '.hw-photo>img', '.origin-photos figure>img',
     '.program-media .main>img', '.program-media .inset>img', '.rec-photos figure>img',
-    '.recog-photo>img', '.chapter-card>img', '.ts-photo>img', '.cm-media:not(.cm-logo)>img', '.photo-card>img'
+    '.recog-photo>img', '.chapter-card>img', '.ts-photo>img', '.cm-media:not(.cm-logo)>img', '.bt-card>img', '.photo-card>img'
   ].join(',');
   document.querySelectorAll(FIT).forEach((img) => {
     if (img.closest('.pp-frame')) return;
