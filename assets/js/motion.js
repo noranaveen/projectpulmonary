@@ -158,33 +158,122 @@
     once.forEach((el) => io.observe(el));
   } else once.forEach((el) => el.classList.add('is-in'));
 
-  /* ---------- 4. benzo[a]pyrene molecule, drawn from hexagon geometry ---------- */
-  document.querySelectorAll('[data-molecule]').forEach((svg) => {
-    const R = 22, W = Math.sqrt(3) * R;
-    const rings = [[0.5, 0], [0, 1], [1, 1], [0.5, 2], [-0.5, 2]]; // pyrene + benzo ring
-    const pts = new Map(), edges = new Map();
-    const key = (x, y) => `${Math.round(x * 10)},${Math.round(y * 10)}`;
-    rings.forEach(([cx, row]) => {
-      const X = 70 + cx * W, Y = 34 + row * 1.5 * R;
-      const v = [];
-      for (let k = 0; k < 6; k++) {
-        const a = Math.PI / 180 * (60 * k - 90);
-        const x = X + R * Math.cos(a), y = Y + R * Math.sin(a);
-        pts.set(key(x, y), [x, y]); v.push([x, y]);
-      }
-      for (let k = 0; k < 6; k++) {
-        const a = v[k], b = v[(k + 1) % 6];
-        const id = [key(...a), key(...b)].sort().join('|');
-        if (!edges.has(id)) edges.set(id, [a, b, edges.size]);
-      }
+  /* ---------- 4. VOC molecules (skeletal formulas) ---------- */
+  (function () {
+    const hex = Array.from({ length: 6 }, (_, k) => { const a = Math.PI / 180 * (60 * k - 90); return [Math.cos(a), Math.sin(a)]; });
+    const ring = { atoms: hex.map((p) => ({ p })), bonds: [[0,1,2],[1,2,1],[2,3,2],[3,4,1],[4,5,2],[5,0,1]] };
+    const M = {
+      benzene: ring,
+      toluene: { atoms: [...ring.atoms, { p: [0, -2] }], bonds: [...ring.bonds, [0, 6, 1]] },
+      styrene: { atoms: [...ring.atoms, { p: [0, -2] }, { p: [0.87, -2.5] }], bonds: [...ring.bonds, [0, 6, 1], [6, 7, 2]] },
+      formaldehyde: { atoms: [{ p: [0, 0.2] }, { p: [0, -1.1], l: 'O' }, { p: [-1.05, 0.85], l: 'H' }, { p: [1.05, 0.85], l: 'H' }], bonds: [[0,1,2],[0,2,1],[0,3,1]] },
+      acrolein: { atoms: [{ p: [-1.95, 0.5] }, { p: [-0.98, -0.1] }, { p: [0, 0.5] }, { p: [1, -0.1], l: 'O' }], bonds: [[0,1,2],[1,2,1],[2,3,2]] },
+      butadiene: { atoms: [{ p: [-1.5, 0.3] }, { p: [-0.5, -0.3] }, { p: [0.5, 0.3] }, { p: [1.5, -0.3] }], bonds: [[0,1,2],[1,2,1],[2,3,2]] }
+    };
+    document.querySelectorAll('[data-voc]').forEach((svg) => {
+      const m = M[svg.dataset.voc]; if (!m) return;
+      // centre the molecule
+      const xs = m.atoms.map((a) => a.p[0]), ys = m.atoms.map((a) => a.p[1]);
+      const cx = (Math.min(...xs) + Math.max(...xs)) / 2, cy = (Math.min(...ys) + Math.max(...ys)) / 2;
+      const P = (a) => [a.p[0] - cx, a.p[1] - cy];
+      let h = '<g class="vm">';
+      m.bonds.forEach(([i, j, o], n) => {
+        const A = m.atoms[i], B = m.atoms[j];
+        let [x1, y1] = P(A), [x2, y2] = P(B);
+        const sh = (a, x, y, X, Y) => { if (!a.l) return [x, y]; const d = Math.hypot(X - x, Y - y); return [x + (X - x) / d * 0.32, y + (Y - y) / d * 0.32]; };
+        [x1, y1] = sh(A, x1, y1, x2, y2); [x2, y2] = sh(B, x2, y2, x1, y1);
+        h += `<line class="vb" style="--n:${n}" x1="${x1.toFixed(3)}" y1="${y1.toFixed(3)}" x2="${x2.toFixed(3)}" y2="${y2.toFixed(3)}"/>`;
+        if (o === 2) {
+          const dx = x2 - x1, dy = y2 - y1, L = Math.hypot(dx, dy), nx = -dy / L * 0.2, ny = dx / L * 0.2;
+          // inner line for rings (toward centre), parallel line otherwise
+          let ox = nx, oy = ny;
+          if (svg.dataset.voc !== 'formaldehyde' && i < 6 && j < 6 && ['benzene','toluene','styrene'].includes(svg.dataset.voc)) {
+            const mx = (x1 + x2) / 2 - P({ p: [0, 0] })[0], my = (y1 + y2) / 2 - P({ p: [0, 0] })[1];
+            if (mx * nx + my * ny > 0) { ox = -nx; oy = -ny; }
+          }
+          const k = 0.18;
+          h += `<line class="vb vb2" style="--n:${n + 0.5}" x1="${(x1 + dx * k + ox).toFixed(3)}" y1="${(y1 + dy * k + oy).toFixed(3)}" x2="${(x2 - dx * k + ox).toFixed(3)}" y2="${(y2 - dy * k + oy).toFixed(3)}"/>`;
+        }
+      });
+      m.atoms.forEach((a, n) => {
+        const [x, y] = P(a);
+        h += a.l ? `<text class="va va-${a.l}" style="--n:${n}" x="${x.toFixed(3)}" y="${(y + 0.2).toFixed(3)}">${a.l}</text>` : `<circle class="vc" style="--n:${n}" cx="${x.toFixed(3)}" cy="${y.toFixed(3)}" r=".13"/>`;
+      });
+      const S = Math.max(Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys), 2.2) + 1.1;
+      svg.setAttribute('viewBox', `${(-S / 2).toFixed(2)} ${(-S / 2).toFixed(2)} ${S.toFixed(2)} ${S.toFixed(2)}`);
+      svg.innerHTML = h + '</g>';
     });
-    let html = '';
-    edges.forEach(([a, b, i]) => {
-      html += `<line class="bond" style="--i:${i}" x1="${a[0].toFixed(1)}" y1="${a[1].toFixed(1)}" x2="${b[0].toFixed(1)}" y2="${b[1].toFixed(1)}"/>`;
+  })();
+
+  /* ---------- 6. merch whirlwind + waitlist ---------- */
+  const storm = document.querySelector('[data-storm]');
+  if (storm) {
+    const items = Array.from(storm.querySelectorAll('.mw-item'));
+    const N = items.length;
+    const cfg = items.map((el, i) => ({ el, ph: (i / N) * Math.PI * 2, h: (i * 0.618) % 1, sp: 0.55 + ((i * 37) % 10) / 22, rot: ((i * 53) % 40) - 20 }));
+    let t0 = performance.now(), boost = 0, inView = false, enter = 0;
+    const stage = storm.closest('.mw-stage');
+    stage.addEventListener('pointerenter', () => { boost = 1; });
+    stage.addEventListener('pointerleave', () => { boost = 0; });
+    if ('IntersectionObserver' in window) new IntersectionObserver((es) => { inView = es[0].isIntersecting; }, { threshold: 0.1 }).observe(stage);
+    let speed = 1;
+    function spin(now) {
+      const dt = Math.min(0.05, (now - t0) / 1000); t0 = now;
+      if (inView || !('IntersectionObserver' in window)) {
+        enter = Math.min(1, enter + dt * 1.4);
+        speed += ((1 + boost * 1.6) - speed) * 0.05;
+        const W = stage.clientWidth, H = stage.clientHeight;
+        cfg.forEach((c) => {
+          const m = reduce ? 0 : 1;
+          c.ph += dt * c.sp * 0.55 * speed * m;                         // slow-motion orbit
+          c.h = (c.h + dt * 0.022 * speed * m) % 1;                      // drift upward
+          c.tx = (c.tx || 0) + dt * (0.6 + c.sp * 0.5) * m;             // tumble clock
+          const y = 1 - c.h;
+          const r = (0.1 + 0.4 * (1 - y)) * W * (0.35 + 0.65 * enter);
+          const x = Math.cos(c.ph) * r;
+          const z = Math.sin(c.ph);                                      // -1 back .. 1 front
+          const depth = (z + 1) / 2;
+          const s = (0.32 + 1.25 * Math.pow(depth, 1.6)) * (0.8 + 0.3 * (1 - y));
+          const top = (0.1 + 0.78 * y) * H;
+          const fade = Math.min(1, c.h * 5, (1 - c.h) * 5);
+          const rx = Math.sin(c.tx) * 38, ry = Math.cos(c.tx * 0.8) * 55, rz = c.rot + Math.sin(c.tx * 0.6) * 25;
+          c.el.style.transform = `translate3d(${(W / 2 + x).toFixed(1)}px,${top.toFixed(1)}px,0) translate(-50%,-50%) scale(${s.toFixed(3)}) rotateX(${rx.toFixed(1)}deg) rotateY(${ry.toFixed(1)}deg) rotate(${rz.toFixed(1)}deg)`;
+          c.el.style.zIndex = String(Math.round(depth * 100));
+          c.el.style.opacity = ((0.5 + 0.5 * depth) * fade * enter).toFixed(3);
+          const blur = depth < 0.35 ? (0.35 - depth) * 9 : (depth > 0.9 ? (depth - 0.9) * 14 : 0);
+          c.el.style.filter = `blur(${blur.toFixed(1)}px) brightness(${(0.7 + 0.4 * depth).toFixed(2)}) drop-shadow(0 ${(10 + depth * 24).toFixed(0)}px ${(14 + depth * 22).toFixed(0)}px rgba(0,0,0,${(0.25 + depth * 0.25).toFixed(2)}))`;
+        });
+      }
+      requestAnimationFrame(spin);
+    }
+    requestAnimationFrame(spin);
+  }
+  document.querySelectorAll('[data-waitlist]').forEach((form) => {
+    const btn = form.querySelector('button'), txt = form.querySelector('.mw-btn-txt'), status = form.querySelector('.mw-status');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      btn.disabled = true; txt.textContent = 'Adding you…';
+      fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } })
+        .then((r) => {
+          if (!r.ok) throw new Error('bad');
+          form.classList.add('is-done');
+          txt.textContent = 'You’re on the list!';
+          status.textContent = 'Thanks! We’ll email you the moment the merch store opens.';
+          const burst = document.createElement('span'); burst.className = 'mw-burst';
+          const colors = ['#FFB13B', '#FF5A1F', '#C9B8FF', '#8FD3FF', '#6D28D9', '#fff'];
+          for (let i = 0; i < 26; i++) {
+            const b = document.createElement('i');
+            const a = (i / 26) * Math.PI * 2, d = 60 + Math.random() * 70;
+            b.style.cssText = `--x:${(Math.cos(a) * d).toFixed(0)}px;--y:${(Math.sin(a) * d - 30).toFixed(0)}px;--r:${(Math.random() * 540).toFixed(0)}deg;background:${colors[i % colors.length]}`;
+            burst.appendChild(b);
+          }
+          btn.appendChild(burst); setTimeout(() => burst.remove(), 1400);
+        })
+        .catch(() => {
+          btn.disabled = false; txt.textContent = 'Join the merch waitlist';
+          status.textContent = 'Something went wrong. Please try again, or email projectpulmonary@gmail.com.';
+        });
     });
-    let j = 0;
-    pts.forEach(([x, y]) => { html += `<circle class="atom" style="--i:${j++}" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3.2"/>`; });
-    svg.querySelector('.mol').innerHTML = html;
   });
 
   /* ---------- 5. chapter directory: search + Leaflet map ---------- */
@@ -231,7 +320,9 @@
       if (/^[a-z]{2}$/.test(q) && STATES[q.toUpperCase()]) q = norm(STATES[q.toUpperCase()]);
       const terms = q ? q.split(' ') : [];
       const hits = rows.filter((r) => terms.every((t) => r.hay.includes(t)));
-      count.textContent = raw ? `${hits.length} chapter${hits.length === 1 ? '' : 's'} match “${raw}”` : `${rows.length} chapters on the map`;
+      if (!raw) { list.innerHTML = ''; count.textContent = ''; empty.hidden = true; dir.classList.remove('has-q'); return; }
+      dir.classList.add('has-q');
+      count.textContent = hits.length ? `${hits.length} chapter${hits.length === 1 ? '' : 's'} found` : '';
       empty.hidden = hits.length > 0;
       if (emptyQ) emptyQ.textContent = raw;
       list.innerHTML = hits.map((r) => `<li><div class="dir-item"><strong>${esc(r.school)}</strong><span>${esc([r.city, r.region, r.country].filter(Boolean).join(', '))}</span></div></li>`).join('');
@@ -258,4 +349,56 @@
     dir.querySelectorAll('[data-dir-q]').forEach((c) => c.addEventListener('click', () => { input.value = c.dataset.dirQ; render(); }));
     render();
   }
+})();
+
+/* ---------- 7. About: Palisades fire map + synced incident counters ---------- */
+(function () {
+  const map = document.querySelector('[data-firemap]');
+  if (!map) return;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const grow = map.querySelector('.fm-grow');
+  const dayEl = map.querySelector('.fm-day'), dateEl = map.querySelector('.fm-date');
+  const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+  function frame() {
+    const r = map.getBoundingClientRect(), vh = window.innerHeight;
+    const p = reduce ? 1 : clamp((vh * 0.9 - r.top) / (r.height * 0.55 + vh * 0.45), 0, 1);
+    const draw = clamp(p / 0.3, 0, 1);                 // coastline + ridges draw in
+    const fire = clamp((p - 0.18) / 0.62, 0, 1);       // fire spreads over 24 days
+    map.style.setProperty('--draw', draw.toFixed(3));
+    map.style.setProperty('--fire', fire.toFixed(3));
+    map.style.setProperty('--beam', clamp((p - 0.82) / 0.18, 0, 1).toFixed(3));
+    grow.setAttribute('r', (fire * 420).toFixed(1));
+    const el = Math.round(fire * 24);
+    dayEl.textContent = Math.max(1, el);
+    dateEl.textContent = 'Jan ' + (7 + el);
+    map.classList.toggle('is-contained', fire >= 1);
+  }
+  let tick = false;
+  window.addEventListener('scroll', () => { if (!tick) { tick = true; requestAnimationFrame(() => { frame(); tick = false; }); } }, { passive: true });
+  window.addEventListener('resize', frame);
+  frame();
+
+  // incident counters run in step with the timeline marker (2.6s after the panel reveals)
+  const ledger = document.querySelector('.origin-ledger');
+  const dds = ledger ? Array.from(ledger.querySelectorAll('[data-fire-to]')) : [];
+  if (!ledger || !dds.length) return;
+  const fmt = (n) => Math.round(n).toLocaleString('en-US');
+  const run = () => {
+    if (reduce) { ledger.classList.add('fire-go'); dds.forEach((d) => { d.textContent = fmt(+d.dataset.fireTo); }); return; }
+    ledger.classList.add('fire-go');
+    const t0 = performance.now() + 400, D = 2600;
+    const ease = (x) => 1 - Math.pow(1 - x, 3);
+    const step = (now) => {
+      const x = clamp((now - t0) / D, 0, 1);
+      dds.forEach((d) => { d.textContent = fmt(+d.dataset.fireTo * ease(x)); });
+      if (x < 1) requestAnimationFrame(step);
+    };
+    dds.forEach((d) => { d.textContent = '0'; });
+    requestAnimationFrame(step);
+  };
+  if ('IntersectionObserver' in window && !reduce) {
+    dds.forEach((d) => { d.textContent = '0'; });
+    const io = new IntersectionObserver((es) => { if (es[0].isIntersecting) { io.disconnect(); ledger.classList.add('is-in'); run(); } }, { threshold: 0.35 });
+    io.observe(ledger);
+  } else run();
 })();

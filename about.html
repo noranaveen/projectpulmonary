@@ -25,7 +25,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap">
-<link rel="stylesheet" href="assets/css/style.css?v=202611152">
+<link rel="stylesheet" href="assets/css/style.css?v=202611171">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -69,16 +69,45 @@
       </div>
     </div>
 
+    <div class="fire-map" data-firemap aria-label="Illustrated map of the Palisades Fire spreading between Pacific Palisades and Topanga, January 7 to 31, 2025">
+      <div class="fm-head"><span class="eyebrow">How it spread</span><div class="fm-clock"><span class="fm-date">Jan 7</span><span class="fm-sep">&middot;</span><span>Day <b class="fm-day">1</b> of 24</span></div></div>
+      <svg class="fm-svg" viewBox="0 95 1000 315" preserveAspectRatio="xMidYMid meet">
+        <defs>
+          <linearGradient id="fmSea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#DCEBFF"/><stop offset="1" stop-color="#EEF5FF"/></linearGradient>
+          <radialGradient id="fmFire" cx=".72" cy=".25" r=".8"><stop offset="0" stop-color="#FFE08A"/><stop offset=".35" stop-color="#FF8A3D"/><stop offset=".75" stop-color="#E0442A"/><stop offset="1" stop-color="#8E1B1B"/></radialGradient>
+          <filter id="fmBlur" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="14"/></filter><filter id="fmRough" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency=".035" numOctaves="3" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="26" xChannelSelector="R" yChannelSelector="G"/></filter>
+          <mask id="fmMask"><rect width="1000" height="420" fill="#000"/><circle class="fm-grow" cx="700" cy="168" r="0" fill="#fff"/></mask>
+          <clipPath id="fmLand"><path d="M0,0H1000V352C940,340 900,328 840,318S700,300 600,296S420,300 320,296S120,292 0,300Z"/></clipPath>
+        </defs>
+        <path class="fm-sea" d="M0,300C120,292 220,300 320,296S520,288 600,296S760,312 840,318S940,340 1000,352V420H0Z"/>
+        <g clip-path="url(#fmLand)"><path class="fm-ridge" d="M0,150 C120,122 240,168 360,140 S600,120 760,146 S900,128 1000,138"/><path class="fm-ridge" d="M-40,200 C80,172 200,218 320,190 S560,170 720,196 S860,178 1000,188"/><path class="fm-ridge" d="M20,246 C140,218 260,264 380,236 S620,216 780,242 S920,224 1000,234"/></g>
+        <path class="fm-road" d="M0,288C120,280 220,288 320,284S520,276 600,284S760,300 840,306S940,328 1000,340"/>
+        <g mask="url(#fmMask)">
+          <path class="fm-glow" filter="url(#fmBlur)" d="M418,292C404,248 432,196 470,166C520,128 604,116 656,136C708,156 748,182 756,224C764,262 734,292 700,300C640,302 560,296 500,298C468,299 432,300 418,292Z"/>
+          <path class="fm-burn" filter="url(#fmRough)" d="M418,292C404,248 432,196 470,166C520,128 604,116 656,136C708,156 748,182 756,224C764,262 734,292 700,300C640,302 560,296 500,298C468,299 432,300 418,292Z"/>
+        </g>
+        <path class="fm-perim" filter="url(#fmRough)" d="M418,292C404,248 432,196 470,166C520,128 604,116 656,136C708,156 748,182 756,224C764,262 734,292 700,300C640,302 560,296 500,298C468,299 432,300 418,292Z"/>
+        <path class="fm-coast" d="M0,300C120,292 220,300 320,296S520,288 600,296S760,312 840,318S940,340 1000,352"/>
+        <g class="fm-ign"><circle class="fm-ring" cx="700" cy="168" r="10"/><circle class="fm-ring r2" cx="700" cy="168" r="10"/><circle class="fm-dot" cx="700" cy="168" r="5"/></g>
+        <g class="fm-labels">
+          <text x="70" y="270">Malibu</text><text x="455" y="330" class="fm-in">Topanga</text><text x="760" y="150" class="fm-in">Pacific Palisades</text><text x="880" y="300">Santa Monica</text>
+          <text x="500" y="392" class="fm-sea-l">Pacific Ocean</text><text x="712" y="190" class="fm-ign-l">Ignition &middot; Jan 7</text>
+        </g>
+      </svg>
+      <p class="fm-note">Illustrative map. Approximate burn area between Pacific Palisades, Topanga and Malibu.</p>
+      <span class="fm-beam" aria-hidden="true"></span>
+    </div>
+
     <div class="origin-ledger rv" aria-label="Palisades Fire by the numbers">
       <div class="origin-ledger-top">
         <span>Incident record</span>
         <span>Pacific Palisades, CA &middot; Jan 7&ndash;31, 2025</span>
       </div>
       <dl class="origin-stats">
-        <div><dt>Acres burned</dt><dd data-count-to="23448">23,448</dd></div>
-        <div><dt>Structures destroyed</dt><dd data-count-to="6845">6,845</dd></div>
-        <div><dt>Lives lost</dt><dd data-count-to="12">12</dd></div>
-        <div><dt>Days to containment</dt><dd data-count-to="24">24</dd></div>
+        <div><dt>Acres burned</dt><dd data-fire-to="23448">23,448</dd></div>
+        <div><dt>Structures destroyed</dt><dd data-fire-to="6845">6,845</dd></div>
+        <div><dt>Lives lost</dt><dd data-fire-to="12">12</dd></div>
+        <div><dt>Days to containment</dt><dd data-fire-to="24">24</dd></div>
       </dl>
       <div class="origin-timeline" role="img" aria-label="Timeline: ignition on January 7, full containment on January 31, 24 days later">
         <div class="origin-ticks" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
@@ -145,7 +174,7 @@
   </div>
 </section>
 
-<section class="section band-paper">
+<section class="section band-lav">
   <div class="wrap">
     <div class="sec-head"><span class="eyebrow">Our founders</span><h2 class="h-lg">Founders</h2></div>
     <div class="founder rv">
@@ -162,6 +191,25 @@
         <span class="role">Co-founder &amp; CFO</span>
         <h3>Elena</h3>
         <p>My grandmother was diagnosed with lung cancer only after it had already spread, as no one had screened her early enough. This precise detail became my conviction: catching disease early, before symptoms appear, is often the difference between treatable and terminal. When the Palisades wildfire devastated my community, Southern California, that conviction found new urgency. I watched firefighters inhale thick, carcinogenic smoke with no real protection and no system in place to track what that exposure would mean for their lungs years later. I founded Project Pulmonary because firefighters deserved protection at every stage: prevention before exposure, care after it, and policy to make that protection permanent.</p>
+      </div>
+    </div>
+    <div class="sec-head exec-head"><span class="eyebrow">Leadership</span><h2 class="h-lg">Chief Executives</h2></div>
+    <div class="founder rv">
+      <img src="assets/images/exec-sarayu-lanka.jpg" alt="Sarayu Lanka, Executive Assistant and Chief Technology Officer" loading="lazy" style="object-position:50% 30%">
+      <div>
+        <span class="role">Executive Assistant &amp; Chief Technology Officer</span>
+        <h3>Sarayu Lanka</h3>
+        <p>I live in Ellicott City, Maryland, and I&rsquo;ve always been drawn to the places where technology and healthcare meet, whether in research, clubs, or my own projects. I joined Project Pulmonary because I saw a chance to use my skills to make a real difference, helping protect firefighters and spread awareness about lung cancer prevention around the world. I am really proud to be part of a youth-led organization that has impacted individuals globally, with student chapters around the world working to protect firefighters from the carcinogens they&rsquo;re consistently exposed to on the job.</p>
+        <p>At Howard High School, I&rsquo;m involved in clubs such as HOSA, Science Olympiad, and FBLA. Beyond that, I enjoy tutoring, playing the piano, and reading. In the future, I hope to contribute to the biotechnology field by building devices that make healthcare more accessible and advance medicine.</p>
+      </div>
+    </div>
+    <div class="founder rv">
+      <img src="assets/images/exec-angela-azizi.jpg" alt="Angela Azizi, Executive Assistant and Chief of Onboarding and Membership" loading="lazy" style="object-position:50% 25%">
+      <div>
+        <span class="role">Executive Assistant &amp; Chief of Onboarding/Membership</span>
+        <h3>Angela Azizi</h3>
+        <p>I live in Rancho Cucamonga, California, and hold leadership positions in several school organizations, including Rising Meds and Science National Honor Society, while being actively involved in Future Business Leaders of America, California Scholarship Federation, and National Honor Society. In the future, I aspire to pursue a career in medicine, with the goal of becoming a psychiatrist.</p>
+        <p>I joined Project Pulmonary to raise awareness about the dangers of carcinogen exposure and advocate for the health and safety of firefighters and affected communities.</p>
       </div>
     </div>
   </div>
@@ -233,7 +281,7 @@
   </div>
 </section>
 
-<section class="section band-paper">
+<section class="section band-navy on-dark">
   <div class="wrap">
     <div class="sec-head"><span class="eyebrow">How we work</span><h2 class="h-lg">Programs</h2></div>
     <div class="grid-3">
@@ -244,14 +292,14 @@
   </div>
 </section>
 
-<section class="section" id="testimonials">
+<section class="section band-lav" id="testimonials">
   <div class="wrap">
     <div class="sec-head"><span class="eyebrow">Testimonials</span><h2 class="h-lg">Team Testimonials</h2><p class="lede">Our national team is run entirely by students. Here is why they joined.</p></div>
     <div class="testimonials"><figure class="testimonial rv"><blockquote>Hi, my name is Jaiden Bloodworth, and I'm so excited to be a part of the Project Pulmonary Executive Team. I serve as the Government Affairs Director, and my team will focus on lobbying government officials on behalf of every firefighter. I believe every firefighter should have the resources and support necessary to serve their communities, and that Project Pulmonary is the best way to help them. My team and I hope to raise awareness about hazardous environments and enhance cancer prevention through our governmental efforts. I hope that, through my participation, I will connect like-minded individuals to prevent future problems and provide current solutions in this field. I'm very excited to work with this team, and I look forward to what we accomplish in the future!</blockquote><figcaption class="who"><div class="avatar">JB</div><div><div class="name">Jaiden Bloodworth</div><div class="role">Chief of Government Affairs</div></div></figcaption></figure><figure class="testimonial rv"><blockquote>Hey, my name is Harshitha Venkatesan, and I'm so excited to be part of this initiative. I serve as the Community Outreach National Board Director, and what draws me most to Project Pulmonary is its focus on education, awareness, and making a real difference in people's lives. I think what Project Pulmonary does is really important because it teaches people about lung health, how to prevent problems, and helping spread important information about lung health and prevention. Being part of this also connects to what I want to do in the future because I'm interested in healthcare and helping people. I'm proud to be part of something that makes a difference in people's lives and supports our community!!</blockquote><figcaption class="who"><div class="avatar">HV</div><div><div class="name">Harshitha Venkatesan</div><div class="role">Chief of Community Outreach</div></div></figcaption></figure><figure class="testimonial rv"><blockquote>Hi my name is Christy Chen, I am so proud to be a part of Project Pulmonary. Project Pulmonary's mission is extremely inspiring and meaningful as it focuses on spreading awareness about lung health and cancer prevention as well as bettering the lives of firefighters. I love being able to do something and help out my community and especially our firefighters that work so hard to keep us safe.</blockquote><figcaption class="who"><div class="avatar">CC</div><div><div class="name">Christy Chen</div><div class="role">Chief of Onboarding</div></div></figcaption></figure><figure class="testimonial rv"><blockquote>Hi, my name is Siri Damu, and I'm really happy for the opportunity to be part of this. I think Project Pulmonary's mission is really meaningful because it focuses on spreading awareness and education about lung health and prevention, which is something that impacts so many people. My team works on creating podcasts and articles to help make medical topics more accessible and engaging. Being part of this connects a lot to my future goals, as I plan to pursue pre-med in college and eventually become a pediatric cardiologist. I'm really interested in combining education, advocacy, and patient care to make a meaningful impact in healthcare. Overall, I'm excited to be involved in something that aligns so closely with what I hope to do in the future.</blockquote><figcaption class="who"><div class="avatar">SD</div><div><div class="name">Siri Damu</div><div class="role">Chief of Research and Medical Affairs</div></div></figcaption></figure><figure class="testimonial rv"><blockquote>I'm proud to be a part of an initiative that gives back to the community providing so much for us. Being in Project Pulmonary allows me to combine advocacy, service, and health education, building a future together where firefighters and families can have the support that they have long deserved.</blockquote><figcaption class="who"><div class="avatar">SL</div><div><div class="name">Sarayu Lanka</div><div class="role">Chief Technology Officer</div></div></figcaption></figure></div>
   </div>
 </section>
 
-<section class="section band-paper">
+<section class="section">
   <div class="wrap">
     <div class="sec-head"><span class="eyebrow">The team in action</span><h2 class="h-lg">Chapter Events</h2></div>
     <div class="gallery rv"><figure class="w2 h2"><img src="assets/images/drive/l4l-cards-collage.jpg" alt="Letters4Lungs thank-you cards for a local station" loading="lazy"><figcaption>Kit packing session</figcaption></figure><figure class=""><img src="assets/images/drive/letters-girls.jpg" alt="Young volunteers holding handmade cards and drinks" loading="lazy"><figcaption>Letters4Lungs</figcaption></figure><figure class=""><img src="assets/images/drive/chapter-zoom.jpg" alt="A video call with dozens of chapter members" loading="lazy"><figcaption>Virtual chapter meeting</figcaption></figure><figure class="h2"><img src="assets/images/drive/station-five.jpg" alt="Five chapter members at a fire station" loading="lazy"><figcaption>Chapter visit</figcaption></figure><figure class=""><img src="assets/images/drive/origami-spread.jpg" alt="Origami hearts and animals folded for firefighters" loading="lazy"><figcaption>Paper hearts for crews</figcaption></figure><figure class="w2"><img src="assets/images/drive/young-volunteer-officials.jpg" alt="A young volunteer with two officials at a city meeting" loading="lazy"><figcaption>Recognized at a city meeting</figcaption></figure><figure class="w2"><img src="assets/images/drive/origami.jpg" alt="Origami hearts and cranes made for firefighters" loading="lazy"><figcaption>Origami for firefighters</figcaption></figure><figure class="w2"><img src="assets/images/drive/booth-kids.jpg" alt="Two volunteers at a community booth with helmets and cards" loading="lazy"><figcaption>Community booth</figcaption></figure><figure class=""><img src="assets/images/drive/station-signs.jpg" alt="Young volunteers holding handmade signs at a fire station" loading="lazy"><figcaption>Station fundraiser</figcaption></figure></div>
@@ -276,6 +324,9 @@
   <div class="wrap">
     <div class="sec-head center"><span class="eyebrow">Supported by</span><h2 class="h-md">Backed and Funded By</h2></div>
     <div class="logo-marquee rv" role="region" aria-label="Organizations that back and fund Project Pulmonary"><div class="lm-track"><div class="lm-set"><a class="lm-item" href="https://bornthisway.foundation/" target="_blank" rel="noopener" title="Born This Way Foundation"><img src="assets/images/sponsors/born-this-way.png" alt="Born This Way Foundation" loading="lazy"></a><a class="lm-item" href="https://boldjourney.com/" target="_blank" rel="noopener" title="Bold Journey"><img src="assets/images/sponsors/bold-journey.png" alt="Bold Journey" loading="lazy"></a><a class="lm-item" href="https://www.pointsoflight.org/" target="_blank" rel="noopener" title="Points of Light"><img src="assets/images/sponsors/points-of-light.svg" alt="Points of Light" loading="lazy"></a><a class="lm-item" href="https://canvasrebel.com/meet-bettina-lee/" target="_blank" rel="noopener" title="CanvasRebel"><img src="assets/images/sponsors/canvas-rebel.png" alt="CanvasRebel" loading="lazy"></a><span class="lm-item" title="Liquid I.V."><img src="assets/images/sponsors/liquid-iv.png" alt="Liquid I.V." loading="lazy"></span><span class="lm-item" title="American Lung Association"><img src="assets/images/sponsors/american-lung-association.png" alt="American Lung Association" loading="lazy"></span><span class="lm-item" title="The Coffee Bean &amp; Tea Leaf"><img src="assets/images/sponsors/coffee-bean.png" alt="The Coffee Bean &amp; Tea Leaf" loading="lazy"></span><span class="lm-item" title="9/11 Day"><img src="assets/images/sponsors/911-day.png" alt="9/11 Day" loading="lazy"></span><span class="lm-item" title="AmeriCorps"><img src="assets/images/sponsors/americorps.png" alt="AmeriCorps" loading="lazy"></span><span class="lm-item" title="Youth Service America"><img src="assets/images/sponsors/youth-service-america.png" alt="Youth Service America" loading="lazy"></span><span class="lm-item" title="Mathnasium"><img src="assets/images/sponsors/mathnasium.png" alt="Mathnasium" loading="lazy"></span><span class="lm-item" title="C2 Education"><img src="assets/images/sponsors/c2-education.png" alt="C2 Education" loading="lazy"></span><span class="lm-item" title="Rhapsody Education"><img src="assets/images/sponsors/rhapsody-education.png" alt="Rhapsody Education" loading="lazy"></span><span class="lm-item" title="Origami for Good"><img src="assets/images/sponsors/origami-for-good.png" alt="Origami for Good" loading="lazy"></span><span class="lm-item" title="Apricus Literacy"><img src="assets/images/sponsors/apricus-literacy.png" alt="Apricus Literacy" loading="lazy"></span><span class="lm-item" title="American Lung Cancer Screening Initiative"><img src="assets/images/sponsors/alcsi.png" alt="American Lung Cancer Screening Initiative" loading="lazy"></span></div><div class="lm-set" aria-hidden="true"><a class="lm-item" href="https://bornthisway.foundation/" target="_blank" rel="noopener" tabindex="-1" title="Born This Way Foundation"><img src="assets/images/sponsors/born-this-way.png" alt="" loading="lazy"></a><a class="lm-item" href="https://boldjourney.com/" target="_blank" rel="noopener" tabindex="-1" title="Bold Journey"><img src="assets/images/sponsors/bold-journey.png" alt="" loading="lazy"></a><a class="lm-item" href="https://www.pointsoflight.org/" target="_blank" rel="noopener" tabindex="-1" title="Points of Light"><img src="assets/images/sponsors/points-of-light.svg" alt="" loading="lazy"></a><a class="lm-item" href="https://canvasrebel.com/meet-bettina-lee/" target="_blank" rel="noopener" tabindex="-1" title="CanvasRebel"><img src="assets/images/sponsors/canvas-rebel.png" alt="" loading="lazy"></a><span class="lm-item" title="Liquid I.V."><img src="assets/images/sponsors/liquid-iv.png" alt="" loading="lazy"></span><span class="lm-item" title="American Lung Association"><img src="assets/images/sponsors/american-lung-association.png" alt="" loading="lazy"></span><span class="lm-item" title="The Coffee Bean &amp; Tea Leaf"><img src="assets/images/sponsors/coffee-bean.png" alt="" loading="lazy"></span><span class="lm-item" title="9/11 Day"><img src="assets/images/sponsors/911-day.png" alt="" loading="lazy"></span><span class="lm-item" title="AmeriCorps"><img src="assets/images/sponsors/americorps.png" alt="" loading="lazy"></span><span class="lm-item" title="Youth Service America"><img src="assets/images/sponsors/youth-service-america.png" alt="" loading="lazy"></span><span class="lm-item" title="Mathnasium"><img src="assets/images/sponsors/mathnasium.png" alt="" loading="lazy"></span><span class="lm-item" title="C2 Education"><img src="assets/images/sponsors/c2-education.png" alt="" loading="lazy"></span><span class="lm-item" title="Rhapsody Education"><img src="assets/images/sponsors/rhapsody-education.png" alt="" loading="lazy"></span><span class="lm-item" title="Origami for Good"><img src="assets/images/sponsors/origami-for-good.png" alt="" loading="lazy"></span><span class="lm-item" title="Apricus Literacy"><img src="assets/images/sponsors/apricus-literacy.png" alt="" loading="lazy"></span><span class="lm-item" title="American Lung Cancer Screening Initiative"><img src="assets/images/sponsors/alcsi.png" alt="" loading="lazy"></span></div></div></div>
+  
+    <div class="sec-head center rp-head"><span class="eyebrow">Community partners</span><h2 class="h-md">Restaurants We&rsquo;ve Partnered With</h2><p class="lede">Local restaurants that have hosted fundraisers and supported our drives.</p></div>
+    <div class="logo-marquee rp-marquee rv" role="region" aria-label="Restaurant partners"><div class="lm-track rev"><div class="lm-set"><span class="lm-item rp-item" title="Panda Express"><img src="assets/images/partners/panda-express.png" alt="Panda Express" loading="lazy"></span><span class="lm-item rp-item" title="Little Caesars"><img src="assets/images/partners/little-caesars.png" alt="Little Caesars" loading="lazy"></span><span class="lm-item rp-item" title="Raising Cane&rsquo;s"><img src="assets/images/partners/raising-canes.png" alt="Raising Cane&rsquo;s" loading="lazy"></span><span class="lm-item rp-item" title="BJ&rsquo;s Restaurant &amp; Brewhouse"><img src="assets/images/partners/bjs.png" alt="BJ&rsquo;s Restaurant &amp; Brewhouse" loading="lazy"></span><span class="lm-item rp-item" title="Chipotle"><img src="assets/images/partners/chipotle.png" alt="Chipotle" loading="lazy"></span><span class="lm-item rp-item rp-word" title="TasTea"><span>Tas<b>Tea</b></span></span><span class="lm-item rp-item" title="Luna Grill"><img src="assets/images/partners/luna-grill.png" alt="Luna Grill" loading="lazy"></span><span class="lm-item rp-item" title="Panda Express"><img src="assets/images/partners/panda-express.png" alt="Panda Express" loading="lazy"></span><span class="lm-item rp-item" title="Little Caesars"><img src="assets/images/partners/little-caesars.png" alt="Little Caesars" loading="lazy"></span><span class="lm-item rp-item" title="Raising Cane&rsquo;s"><img src="assets/images/partners/raising-canes.png" alt="Raising Cane&rsquo;s" loading="lazy"></span><span class="lm-item rp-item" title="BJ&rsquo;s Restaurant &amp; Brewhouse"><img src="assets/images/partners/bjs.png" alt="BJ&rsquo;s Restaurant &amp; Brewhouse" loading="lazy"></span><span class="lm-item rp-item" title="Chipotle"><img src="assets/images/partners/chipotle.png" alt="Chipotle" loading="lazy"></span><span class="lm-item rp-item rp-word" title="TasTea"><span>Tas<b>Tea</b></span></span><span class="lm-item rp-item" title="Luna Grill"><img src="assets/images/partners/luna-grill.png" alt="Luna Grill" loading="lazy"></span></div><div class="lm-set" aria-hidden="true"><span class="lm-item rp-item" title="Panda Express"><img src="assets/images/partners/panda-express.png" alt="Panda Express" loading="lazy"></span><span class="lm-item rp-item" title="Little Caesars"><img src="assets/images/partners/little-caesars.png" alt="Little Caesars" loading="lazy"></span><span class="lm-item rp-item" title="Raising Cane&rsquo;s"><img src="assets/images/partners/raising-canes.png" alt="Raising Cane&rsquo;s" loading="lazy"></span><span class="lm-item rp-item" title="BJ&rsquo;s Restaurant &amp; Brewhouse"><img src="assets/images/partners/bjs.png" alt="BJ&rsquo;s Restaurant &amp; Brewhouse" loading="lazy"></span><span class="lm-item rp-item" title="Chipotle"><img src="assets/images/partners/chipotle.png" alt="Chipotle" loading="lazy"></span><span class="lm-item rp-item rp-word" title="TasTea"><span>Tas<b>Tea</b></span></span><span class="lm-item rp-item" title="Luna Grill"><img src="assets/images/partners/luna-grill.png" alt="Luna Grill" loading="lazy"></span><span class="lm-item rp-item" title="Panda Express"><img src="assets/images/partners/panda-express.png" alt="Panda Express" loading="lazy"></span><span class="lm-item rp-item" title="Little Caesars"><img src="assets/images/partners/little-caesars.png" alt="Little Caesars" loading="lazy"></span><span class="lm-item rp-item" title="Raising Cane&rsquo;s"><img src="assets/images/partners/raising-canes.png" alt="Raising Cane&rsquo;s" loading="lazy"></span><span class="lm-item rp-item" title="BJ&rsquo;s Restaurant &amp; Brewhouse"><img src="assets/images/partners/bjs.png" alt="BJ&rsquo;s Restaurant &amp; Brewhouse" loading="lazy"></span><span class="lm-item rp-item" title="Chipotle"><img src="assets/images/partners/chipotle.png" alt="Chipotle" loading="lazy"></span><span class="lm-item rp-item rp-word" title="TasTea"><span>Tas<b>Tea</b></span></span><span class="lm-item rp-item" title="Luna Grill"><img src="assets/images/partners/luna-grill.png" alt="Luna Grill" loading="lazy"></span></div></div></div>
   </div>
 </section>
 
@@ -326,7 +377,7 @@
     </div>
   </div>
 </footer>
-<script src="assets/js/main.js?v=202611152"></script>
-<script src="assets/js/motion.js?v=202611152"></script>
+<script src="assets/js/main.js?v=202611171"></script>
+<script src="assets/js/motion.js?v=202611171"></script>
 </body>
 </html>
