@@ -547,3 +547,12 @@
     io.observe(el);
   });
 })();
+
+/* ---------- 9. Holiday stockings: items pop up when in view ---------- */
+(function () {
+  document.querySelectorAll('[data-stockings]').forEach((el) => {
+    if (!('IntersectionObserver' in window)) { el.classList.add('is-in'); return; }
+    const io = new IntersectionObserver((es) => { if (es[0].isIntersecting) { io.disconnect(); setTimeout(() => el.classList.add('is-in'), 200); } }, { threshold: 0.35 });
+    io.observe(el);
+  });
+})();
