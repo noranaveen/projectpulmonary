@@ -396,7 +396,7 @@ ul{margin:0;padding:0;list-style:none}
 .article-nav-strip{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:44px}
 .article-nav-card{display:flex;flex-direction:column;gap:6px;padding:20px;border:1px solid var(--line);border-radius:var(--radius);text-decoration:none}
 .article-nav-card:hover{border-color:var(--blue)}
-.article-nav-card .dir{font-size:.8rem;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.1em}
+.article-nav-card .nav-dir{font-size:.8rem;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.1em}
 .article-nav-card .ttl{font-family:var(--font-display);font-weight:600;font-size:1.1rem}
 
 /* ---------- footer ---------- */
@@ -1899,3 +1899,15 @@ a.lm-item:hover{transform:translateY(-4px);box-shadow:0 16px 30px -18px rgba(20,
 .pod-strip b{font-family:var(--font-display);font-size:1.2rem;display:block}
 .pod-strip span{color:#C9CDF2}
 @media (prefers-reduced-motion:reduce){.pod-wave i{animation:none}}
+
+/* ---- Articles & Podcast combined page ---- */
+.rp-tabs{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.rp-tabs a{display:inline-flex;align-items:center;gap:9px;padding:12px 20px;border-radius:999px;border:1.5px solid rgba(255,255,255,.4);color:#fff;font-weight:600;text-decoration:none;background:rgba(255,255,255,.06);backdrop-filter:blur(4px);transition:background .2s,border-color .2s,transform .2s}
+.rp-tabs a:hover{background:rgba(255,255,255,.16);border-color:#fff;transform:translateY(-2px)}
+.rp-tabs svg{width:18px;height:18px}
+.rp-pod .pod-split{align-items:start}
+.rp-eps{margin-top:24px}
+.rp-eps .pod-ep{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12)}
+.rp-guest{margin-top:20px;color:#C9CDF2;font-size:.95rem}
+.rp-guest a{color:#fff;text-decoration:underline;text-underline-offset:3px}
+#podcast,#articles{scroll-margin-top:90px}

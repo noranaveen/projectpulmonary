@@ -328,7 +328,7 @@ def render_nav_strip(articles, index):
         nxt = articles[index + 1]
         cards.append(
             f'      <a class="article-nav-card prev" href="{esc_attr(nxt["slug"])}.html">\n'
-            f'        <span class="dir">Next article &rarr;</span>\n'
+            f'        <span class="nav-dir">Next article &rarr;</span>\n'
             f'        <span class="ttl">{esc(nxt["title"])}</span>\n'
             f"      </a>"
         )
@@ -336,14 +336,14 @@ def render_nav_strip(articles, index):
         prv = articles[index - 1]
         cards.append(
             f'      <a class="article-nav-card prev" href="{esc_attr(prv["slug"])}.html">\n'
-            f'        <span class="dir">&larr; Previous article</span>\n'
+            f'        <span class="nav-dir">&larr; Previous article</span>\n'
             f'        <span class="ttl">{esc(prv["title"])}</span>\n'
             f"      </a>"
         )
     cards.append(
         '      <a class="article-nav-card next" href="../articles.html">\n'
-        '        <span class="dir">All articles</span>\n'
-        '        <span class="ttl">Back to Research &amp; Articles</span>\n'
+        '        <span class="nav-dir">All articles</span>\n'
+        '        <span class="ttl">Back to Research</span>\n'
         "      </a>"
     )
     return "\n".join(cards)
